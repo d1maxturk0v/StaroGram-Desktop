@@ -63,3 +63,4 @@ GPL-3.0. Основано на:
 ### Icons
 
 - [Solar Icon Set](https://www.figma.com/community/file/1166831539721848736)
+
