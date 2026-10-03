@@ -72,12 +72,12 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include <QtGui/QWindow>
 
 // AyuGram includes
-#include "ayu/ayu_settings.h"
+#include "staro/staro_settings.h"
 #include "boxes/peers/edit_participants_box.h"
 #include "data/data_chat_filters.h"
 #include "history/admin_log/history_admin_log_section.h"
-#include "styles/style_ayu_styles.h"
-#include "styles/style_ayu_icons.h"
+#include "styles/style_staro_styles.h"
+#include "styles/style_staro_icons.h"
 
 
 namespace HistoryView {

@@ -38,7 +38,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #endif // Q_OS_WIN
 
 // AyuGram includes
-#include "ayu/ayu_settings.h"
+#include "staro/staro_settings.h"
 
 
 //extern "C" {

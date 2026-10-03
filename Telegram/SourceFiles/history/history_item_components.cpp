@@ -65,7 +65,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include <QtGui/QGuiApplication>
 
 // AyuGram includes
-#include "ayu/features/filters/filters_controller.h"
+#include "staro/features/filters/filters_controller.h"
 
 
 namespace {

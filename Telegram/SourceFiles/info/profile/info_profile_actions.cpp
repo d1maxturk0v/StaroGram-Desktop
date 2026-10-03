@@ -118,9 +118,9 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include <QtGui/QClipboard>
 
 // AyuGram includes
-#include "ayu/ui/utils/ayu_profile_values.h"
-#include "ayu/utils/telegram_helpers.h"
-#include "styles/style_ayu_styles.h"
+#include "staro/ui/utils/staro_profile_values.h"
+#include "staro/utils/telegram_helpers.h"
+#include "styles/style_staro_styles.h"
 #include "ui/widgets/tooltip.h"
 #include "ui/text/text_entity.h"
 

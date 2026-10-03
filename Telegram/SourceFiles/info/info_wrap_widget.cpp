@@ -56,13 +56,13 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "styles/style_layers.h"
 
 // AyuGram includes
-#include "ayu/ayu_settings.h"
-#include "ayu/features/filters/filters_cache_controller.h"
-#include "ayu/ui/settings/filters/edit_filter.h"
-#include "ayu/ui/settings/filters/settings_filters_list.h"
-#include "ayu/utils/telegram_helpers.h"
+#include "staro/staro_settings.h"
+#include "staro/features/filters/filters_cache_controller.h"
+#include "staro/ui/settings/filters/edit_filter.h"
+#include "staro/ui/settings/filters/settings_filters_list.h"
+#include "staro/utils/telegram_helpers.h"
 #include "inline_bots/bot_attach_web_view.h"
-#include "styles/style_ayu_settings.h"
+#include "styles/style_staro_settings.h"
 #include "window/window_peer_menu.h"
 
 

@@ -127,9 +127,9 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include <kurlmimedata.h>
 
 // AyuGram includes
-#include "ayu/ayu_settings.h"
-#include "ayu/ayu_state.h"
-#include "ayu/features/streamer_mode/streamer_mode.h"
+#include "staro/staro_settings.h"
+#include "staro/staro_state.h"
+#include "staro/features/streamer_mode/streamer_mode.h"
 
 
 namespace Media {

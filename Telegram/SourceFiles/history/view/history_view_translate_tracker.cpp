@@ -27,7 +27,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "spellcheck/platform/platform_language.h"
 
 // AyuGram includes
-#include "ayu/ayu_settings.h"
+#include "staro/staro_settings.h"
 
 
 namespace HistoryView {

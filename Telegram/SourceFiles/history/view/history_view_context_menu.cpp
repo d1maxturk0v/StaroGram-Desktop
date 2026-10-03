@@ -115,9 +115,9 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include <QtGui/QClipboard>
 
 // AyuGram includes
-#include "ayu/ayu_settings.h"
-#include "ayu/features/forward/ayu_forward.h"
-#include "ayu/ui/context_menu/context_menu.h"
+#include "staro/staro_settings.h"
+#include "staro/features/forward/staro_forward.h"
+#include "staro/ui/context_menu/context_menu.h"
 
 
 namespace HistoryView {

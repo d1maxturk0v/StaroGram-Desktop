@@ -1,0 +1,36 @@
+<RCC>
+    <qresource prefix="/gui">
+        <file alias="art/staro/alt/app.svg">../../art/staro/alt/app.svg</file>
+        <file alias="art/staro/alt/app_icon.ico">../../art/staro/alt/app_icon.ico</file>
+        <file alias="art/staro/bard/app.svg">../../art/staro/bard/app.svg</file>
+        <file alias="art/staro/bard/app_icon.ico">../../art/staro/bard/app_icon.ico</file>
+        <file alias="art/staro/chibi/app.png">../../art/staro/chibi/app.png</file>
+        <file alias="art/staro/chibi/app_icon.ico">../../art/staro/chibi/app_icon.ico</file>
+        <file alias="art/staro/chibi2/app.png">../../art/staro/chibi2/app.png</file>
+        <file alias="art/staro/chibi2/app_icon.ico">../../art/staro/chibi2/app_icon.ico</file>
+        <file alias="art/staro/default/app.svg">../../art/staro/default/app.svg</file>
+        <file alias="art/staro/default/app_icon.ico">../../art/staro/default/app_icon.ico</file>
+        <file alias="art/staro/discord/app.svg">../../art/staro/discord/app.svg</file>
+        <file alias="art/staro/discord/app_icon.ico">../../art/staro/discord/app_icon.ico</file>
+        <file alias="art/staro/extera/app.svg">../../art/staro/extera/app.svg</file>
+        <file alias="art/staro/extera/app_icon.ico">../../art/staro/extera/app_icon.ico</file>
+        <file alias="art/staro/extera2/app.svg">../../art/staro/extera2/app.svg</file>
+        <file alias="art/staro/extera2/app_icon.ico">../../art/staro/extera2/app_icon.ico</file>
+        <file alias="art/staro/nothing/app.svg">../../art/staro/nothing/app.svg</file>
+        <file alias="art/staro/nothing/app_icon.ico">../../art/staro/nothing/app_icon.ico</file>
+        <file alias="art/staro/spotify/app.svg">../../art/staro/spotify/app.svg</file>
+        <file alias="art/staro/spotify/app_icon.ico">../../art/staro/spotify/app_icon.ico</file>
+        <file alias="art/staro/win95/app.png">../../art/staro/win95/app.png</file>
+        <file alias="art/staro/win95/app_icon.ico">../../art/staro/win95/app_icon.ico</file>
+        <file alias="art/staro/yaplus/app.svg">../../art/staro/yaplus/app.svg</file>
+        <file alias="art/staro/yaplus/app_icon.ico">../../art/staro/yaplus/app_icon.ico</file>
+        <file alias="icons/staro/nocover.svg">../../icons/staro/nocover.svg</file>
+        <file alias="icons/staro/donates/boosty.svg">../../icons/staro/donates/boosty.svg</file>
+        <file alias="icons/staro/donates/ton.svg">../../icons/staro/donates/ton.svg</file>
+        <file alias="icons/staro/donates/bitcoin.svg">../../icons/staro/donates/bitcoin.svg</file>
+        <file alias="icons/staro/donates/ethereum.svg">../../icons/staro/donates/ethereum.svg</file>
+        <file alias="icons/staro/donates/solana.svg">../../icons/staro/donates/solana.svg</file>
+        <file alias="icons/staro/donates/tron.svg">../../icons/staro/donates/tron.svg</file>
+        <file alias="icons/staro/donates/support_logo.svg">../../icons/staro/donates/support_logo.svg</file>
+    </qresource>
+</RCC>

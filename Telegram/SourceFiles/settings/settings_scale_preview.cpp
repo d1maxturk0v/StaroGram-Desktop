@@ -33,8 +33,8 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include <QtGui/QScreen>
 
 // AyuGram includes
-#include "ayu/ayu_settings.h"
-#include "ayu/ui/ayu_userpic.h"
+#include "staro/staro_settings.h"
+#include "staro/ui/staro_userpic.h"
 #include "ui/chat/chat_style_radius.h"
 
 

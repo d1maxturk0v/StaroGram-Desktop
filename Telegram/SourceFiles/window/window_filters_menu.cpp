@@ -50,7 +50,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include <QtGui/QtEvents>
 
 // AyuGram includes
-#include "ayu/ayu_settings.h"
+#include "staro/staro_settings.h"
 
 
 namespace Window {

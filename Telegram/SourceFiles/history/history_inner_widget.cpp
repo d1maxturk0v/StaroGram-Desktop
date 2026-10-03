@@ -135,11 +135,11 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include <QtCore/QMimeData>
 
 // AyuGram includes
-#include "ayu/ayu_settings.h"
-#include "ayu/features/filters/filters_cache_controller.h"
-#include "ayu/ui/context_menu/context_menu.h"
-#include "ayu/ui/settings/filters/edit_filter.h"
-#include "ayu/utils/telegram_helpers.h"
+#include "staro/staro_settings.h"
+#include "staro/features/filters/filters_cache_controller.h"
+#include "staro/ui/context_menu/context_menu.h"
+#include "staro/ui/settings/filters/edit_filter.h"
+#include "staro/utils/telegram_helpers.h"
 #include "data/data_document_media.h"
 
 

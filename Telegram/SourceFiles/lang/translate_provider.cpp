@@ -19,8 +19,8 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "platform/platform_translate_provider.h"
 
 // AyuGram includes
-#include "ayu/ayu_settings.h"
-#include "ayu/features/translator/ayu_translate_provider.h"
+#include "staro/staro_settings.h"
+#include "staro/features/translator/staro_translate_provider.h"
 
 
 namespace {

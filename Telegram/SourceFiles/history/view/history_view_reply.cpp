@@ -40,7 +40,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "styles/style_polls.h"
 
 // AyuGram includes
-#include "ayu/ayu_settings.h"
+#include "staro/staro_settings.h"
 
 
 namespace HistoryView {

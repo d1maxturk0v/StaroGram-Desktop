@@ -78,10 +78,10 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "styles/style_dialogs.h"
 
 // AyuGram includes
-#include "ayu/ayu_settings.h"
-#include "ayu/features/filters/filters_controller.h"
-#include "ayu/features/message_shot/message_shot.h"
-#include "ayu/utils/telegram_helpers.h"
+#include "staro/staro_settings.h"
+#include "staro/features/filters/filters_controller.h"
+#include "staro/features/message_shot/message_shot.h"
+#include "staro/utils/telegram_helpers.h"
 #include "ui/emoji_config.h"
 
 

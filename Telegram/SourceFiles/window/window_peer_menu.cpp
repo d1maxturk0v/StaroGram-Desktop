@@ -136,10 +136,10 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include <QtWidgets/QApplication>
 
 // AyuGram includes
-#include "ayu/utils/telegram_helpers.h"
-#include "styles/style_ayu_icons.h"
-#include "ayu/ui/context_menu/context_menu.h"
-#include "ayu/features/forward/ayu_forward.h"
+#include "staro/utils/telegram_helpers.h"
+#include "styles/style_staro_icons.h"
+#include "staro/ui/context_menu/context_menu.h"
+#include "staro/features/forward/staro_forward.h"
 
 
 namespace Window {

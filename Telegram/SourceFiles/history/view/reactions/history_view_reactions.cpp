@@ -33,10 +33,10 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "styles/style_chat_helpers.h"
 
 // AyuGram includes
-#include "ayu/ayu_settings.h"
-#include "ayu/features/message_shot/message_shot.h"
-#include "ayu/ui/ayu_userpic.h"
-#include "ayu/features/filters/filters_controller.h"
+#include "staro/staro_settings.h"
+#include "staro/features/message_shot/message_shot.h"
+#include "staro/ui/staro_userpic.h"
+#include "staro/features/filters/filters_controller.h"
 
 
 namespace HistoryView::Reactions {

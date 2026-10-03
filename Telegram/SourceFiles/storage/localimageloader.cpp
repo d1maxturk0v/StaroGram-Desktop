@@ -44,7 +44,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include <QtGui/QImageWriter>
 
 // AyuGram includes
-#include "ayu/utils/telegram_helpers.h"
+#include "staro/utils/telegram_helpers.h"
 
 
 namespace {

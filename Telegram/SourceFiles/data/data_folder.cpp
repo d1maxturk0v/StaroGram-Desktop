@@ -30,7 +30,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "styles/style_dialogs.h"
 
 // AyuGram includes
-#include "ayu/ui/ayu_userpic.h"
+#include "staro/ui/staro_userpic.h"
 
 
 namespace Data {

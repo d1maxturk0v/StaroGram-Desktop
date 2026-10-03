@@ -1,0 +1,82 @@
+/*
+ * This is the source code of AyuGram for Desktop.
+ *
+ * We do not and cannot prevent the use of our code,
+ * but be respectful and credit the original author.
+ *
+ * Copyright @Radolyn, 2025
+ */
+
+using "ui/colors.palette";
+using "ui/chat/chat.style";
+using "ui/widgets/widgets.style";
+using "dialogs/dialogs.style";
+
+ayuGhostIcon: icon {{ "staro/ghost", menuIconColor }};
+ayuGhostModeGlobalIcon: icon {{ "staro/ghost_mode_global", historyPeerUserpicFg }};
+ayuEditsHistoryIcon: icon {{ "staro/edits_history", menuIconColor }};
+ayuLReadMenuIcon: icon {{ "staro/lread", menuIconColor }};
+ayuSReadMenuIcon: icon {{ "staro/sread", menuIconColor }};
+ayuStreamerModeMenuIcon: icon {{ "staro/streamer", menuIconColor }};
+ayuToBeginningMenuIcon: icon {{ "staro/to_beginning", menuIconColor }};
+ayuRepeatMenuIcon: icon {{ "staro/repeat", menuIconColor }};
+ayuContactsMutualIcon: icon {{ "staro/contacts_mutual", contactsStatusFg }};
+ayuContactsMutualIconOver: icon {{ "staro/contacts_mutual", contactsStatusFgOver }};
+
+messageFieldAttachIcon: icon {{ "staro/message_field/attach", menuIconColor }};
+messageFieldCommandsIcon: icon {{ "staro/message_field/commands", menuIconColor }};
+messageFieldEmojiIcon: icon {{ "staro/message_field/emoji", menuIconColor }};
+messageFieldVoiceIcon: icon {{ "staro/message_field/voice", menuIconColor }};
+messageFieldTTLIcon: icon {{ "staro/message_field/ttl", menuIconColor }};
+messageFieldCocoonAiIcon: icon{
+	{ size(24px, 24px), transparent },
+	{ "chat/ai_letters-20x20", menuIconColor, point(2px, 2px) },
+	{ "chat/ai_star1-20x20", menuIconColor, point(2px, 2px) },
+	{ "chat/ai_star2-20x20", menuIconColor, point(2px, 2px) },
+};
+
+inChannelBadgeIcon: icon {{ "staro/channel", msgInDateFg }};
+inChannelBadgeSelectedIcon: icon {{ "staro/channel", msgInDateFgSelected }};
+outChannelBadgeIcon: icon {{ "staro/channel", msgOutDateFg }};
+outChannelBadgeSelectedIcon: icon {{ "staro/channel", msgOutDateFgSelected }};
+
+infoExteraOfficialBadge: icon {{ "staro/extera_official", profileVerifiedCheckBg }};
+infoExteraSupporterBadge: icon {{ "staro/extera_badge", profileVerifiedCheckBg }};
+
+winEnterWithGuestIcon: icon {{ "staro/ghost_tray", windowFg }};
+
+editedIcon: IconEmoji{
+    icon: icon{{ "staro/edited", windowFg }};
+    padding: margins(0px, 0px, 0px, 0px);
+    useIconColor: false;
+}
+
+deletedIcon: IconEmoji{
+    icon: icon{{ "staro/trash_bin", windowFg }};
+    padding: margins(0px, 0px, 0px, 0px);
+    useIconColor: false;
+}
+
+burntIcon: IconEmoji{
+    icon: icon{{ "staro/burnt", windowFg }};
+    padding: margins(0px, 0px, 0px, 0px);
+    useIconColor: false;
+}
+
+dialogsExteraOfficialIcon: ThreeStateIcon {
+	icon: icon {{ "staro/dialogs_extera_official", dialogsVerifiedIconBg }};
+	over: icon {{ "staro/dialogs_extera_official", dialogsVerifiedIconBgOver }};
+	active: icon {{ "staro/dialogs_extera_official", dialogsVerifiedIconBgActive }};
+}
+dialogsExteraSupporterIcon: ThreeStateIcon {
+	icon: icon {{ "staro/dialogs_extera_supporter", dialogsVerifiedIconBg }};
+	over: icon {{ "staro/dialogs_extera_supporter", dialogsVerifiedIconBgOver }};
+	active: icon {{ "staro/dialogs_extera_supporter", dialogsVerifiedIconBgActive }};
+}
+
+ayuHistoryFileInPlugin: icon {{ "staro/history_file_plugin", historyFileInIconFg }};
+ayuHistoryFileInPluginSelected: icon {{ "staro/history_file_plugin", historyFileInIconFgSelected }};
+ayuHistoryFileOutPlugin: icon {{ "staro/history_file_plugin", historyFileOutIconFg }};
+ayuHistoryFileOutPluginSelected: icon {{ "staro/history_file_plugin", historyFileOutIconFgSelected }};
+
+menuIconClearAttention: icon {{ "menu/clear", menuIconAttentionColor }};

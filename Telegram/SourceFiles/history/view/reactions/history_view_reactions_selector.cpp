@@ -41,9 +41,9 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "styles/style_chat.h"
 
 // AyuGram includes
-#include "ayu/ui/context_menu/context_menu.h"
-#include "ayu/ayu_settings.h"
-#include "ayu/utils/qt_key_modifiers_extended.h"
+#include "staro/ui/context_menu/context_menu.h"
+#include "staro/staro_settings.h"
+#include "staro/utils/qt_key_modifiers_extended.h"
 
 
 namespace HistoryView::Reactions {

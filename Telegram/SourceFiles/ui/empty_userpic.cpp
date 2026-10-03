@@ -22,8 +22,8 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include <QtSvg/QSvgRenderer>
 
 // AyuGram includes
-#include "ayu/ayu_settings.h"
-#include "ayu/ui/ayu_userpic.h"
+#include "staro/staro_settings.h"
+#include "staro/ui/staro_userpic.h"
 
 
 namespace Ui {

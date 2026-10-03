@@ -80,12 +80,12 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include <QtGui/QClipboard>
 
 // AyuGram includes
-#include "ayu/ayu_settings.h"
-#include "ayu/utils/telegram_helpers.h"
+#include "staro/staro_settings.h"
+#include "staro/utils/telegram_helpers.h"
 #include "boxes/abstract_box.h"
-#include "styles/style_ayu_icons.h"
+#include "styles/style_staro_icons.h"
 #include "lang_auto.h"
-#include "ayu/ui/settings/settings_main.h"
+#include "staro/ui/settings/settings_main.h"
 #include "styles/style_info.h"
 
 

@@ -127,7 +127,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 // AyuGram includes
 #include "data/data_ai_compose_tones.h"
-#include "ayu/ayu_settings.h"
+#include "staro/staro_settings.h"
 #include "history/history_item_components.h"
 
 

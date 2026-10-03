@@ -67,7 +67,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include <QtGui/QGuiApplication>
 
 // AyuGram includes
-#include "ayu/ui/settings/settings_main.h"
+#include "staro/ui/settings/settings_main.h"
 #include "settings/settings_builder.h"
 
 

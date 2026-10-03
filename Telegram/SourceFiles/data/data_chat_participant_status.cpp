@@ -27,7 +27,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "window/window_session_controller.h"
 
 // AyuGram includes
-#include "ayu/features/forward/ayu_forward.h"
+#include "staro/features/forward/staro_forward.h"
 
 
 namespace {

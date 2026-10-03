@@ -33,10 +33,10 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "apiwrap.h"
 
 // AyuGram includes
-#include "ayu/ayu_settings.h"
-#include "ayu/ayu_worker.h"
-#include "ayu/data/messages_storage.h"
-#include "ayu/utils/telegram_helpers.h"
+#include "staro/staro_settings.h"
+#include "staro/staro_worker.h"
+#include "staro/data/messages_storage.h"
+#include "staro/utils/telegram_helpers.h"
 
 
 namespace Data {

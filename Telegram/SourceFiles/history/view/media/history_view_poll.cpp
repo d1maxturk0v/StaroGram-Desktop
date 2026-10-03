@@ -85,7 +85,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "styles/style_widgets.h"
 
 // AyuGram includes
-#include "ayu/ui/ayu_userpic.h"
+#include "staro/ui/staro_userpic.h"
 
 
 namespace HistoryView {

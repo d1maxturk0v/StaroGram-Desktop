@@ -23,9 +23,9 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 // AyuGram includes
 #include "lang_auto.h"
-#include "ayu/ayu_settings.h"
-#include "ayu/ui/components/saved_music.h"
-#include "ayu/utils/telegram_helpers.h"
+#include "staro/staro_settings.h"
+#include "staro/ui/components/saved_music.h"
+#include "staro/utils/telegram_helpers.h"
 #include "data/data_document.h"
 #include "styles/style_menu_icons.h"
 #include "ui/widgets/popup_menu.h"

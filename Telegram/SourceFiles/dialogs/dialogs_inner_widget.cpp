@@ -102,9 +102,9 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include <unordered_map>
 
 // AyuGram includes
-#include "ayu/ui/ayu_userpic.h"
-#include "ayu/utils/telegram_helpers.h"
-#include "styles/style_ayu_icons.h"
+#include "staro/ui/staro_userpic.h"
+#include "staro/utils/telegram_helpers.h"
+#include "styles/style_staro_icons.h"
 
 
 namespace Dialogs {

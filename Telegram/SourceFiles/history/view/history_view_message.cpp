@@ -70,10 +70,10 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "styles/style_polls.h"
 
 // AyuGram includes
-#include "ayu/ayu_settings.h"
-#include "ayu/features/filters/filters_controller.h"
-#include "ayu/features/message_shot/message_shot.h"
-#include "styles/style_ayu_icons.h"
+#include "staro/staro_settings.h"
+#include "staro/features/filters/filters_controller.h"
+#include "staro/features/message_shot/message_shot.h"
+#include "styles/style_staro_icons.h"
 
 
 namespace HistoryView {

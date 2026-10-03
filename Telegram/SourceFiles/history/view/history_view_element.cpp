@@ -72,10 +72,10 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 // AyuGram includes
 #include "data/data_groups.h"
-#include "ayu/ayu_settings.h"
-#include "ayu/features/message_shot/message_shot.h"
-#include "ayu/utils/telegram_helpers.h"
-#include "styles/style_ayu_styles.h"
+#include "staro/staro_settings.h"
+#include "staro/features/message_shot/message_shot.h"
+#include "staro/utils/telegram_helpers.h"
+#include "styles/style_staro_styles.h"
 
 
 namespace HistoryView {

@@ -44,8 +44,8 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include <QtWidgets/QApplication>
 
 // AyuGram includes
-#include "styles/style_ayu_icons.h"
-#include "ayu/ui/ayu_userpic.h"
+#include "styles/style_staro_icons.h"
+#include "staro/ui/staro_userpic.h"
 
 
 [[nodiscard]] PeerListRowId UniqueRowIdFromString(const QString &d) {

@@ -30,9 +30,9 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include <QBuffer>
 
 // AyuGram includes
-#include "ayu/ayu_settings.h"
-#include "ayu/ui/ayu_logo.h"
-#include "styles/style_ayu_icons.h"
+#include "staro/staro_settings.h"
+#include "staro/ui/staro_logo.h"
+#include "styles/style_staro_icons.h"
 
 
 namespace Platform {
