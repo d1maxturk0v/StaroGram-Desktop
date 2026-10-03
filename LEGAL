@@ -19,3 +19,23 @@ to link the code of portions of this program with the OpenSSL library.
 More information about the Telegram project: https://telegram.org
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
+---
+
+This file is part of StaroGram Desktop,
+a fork of AyuGram Desktop with an enhanced plugin system.
+
+Copyright (c) 2026 d1smay (steamcs2fear-spec)
+
+StaroGram Desktop is based on:
+- AyuGram Desktop (https://github.com/AyuGram/AyuGramDesktop)
+- Telegram Desktop (https://github.com/telegramdesktop/tdesktop)
+
+StaroGram Desktop is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+It is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.

@@ -1,10 +1,19 @@
-# AyuGram
+# StaroGram Desktop
 
-![AyuGram Logo](.github/AyuGram.png) ![AyuChan](.github/AyuChan.png)
+![StaroGram Logo](.github/AyuGram.png)
 
-[ English  |   [Русский](README-RU.md) ]
+[ English | [Русский](README-RU.md) ]
 
-## Features
+StaroGram Desktop — форк [AyuGram Desktop](https://github.com/AyuGram/AyuGramDesktop)
+с улучшенной системой плагинов и локальными фичами.
+
+## Отличия от AyuGram
+
+- **Система плагинов** (в разработке) — устанавливай расширения без пересборки клиента
+- **distars** — локальная подмена баланса звёзд и отправка подарков
+- Все фичи AyuGram сохранены
+
+## Фичи (унаследованы от AyuGram)
 
 - Full ghost mode (flexible)
 - Messages history
@@ -13,129 +22,33 @@
 - Streamer mode
 - Local Telegram Premium
 - Translator
-- Media preview & quick reaction on force click (macOS)
 - Enhanced appearance
 
-And many more. Check out our [Documentation](https://docs.ayugram.one/desktop/).
+## Скачать
 
-<h3>
-  <details>
-    <summary>Preview</summary>
-    <table>
-      <tr>
-        <td><img src='.github/demos/demo1.png' width='268' alt='Preferences'></td>
-        <td><img src='.github/demos/demo2.png' width='268' alt='AyuGram Options'></td>
-        <td><img src='.github/demos/demo3.png' width='268' alt='Message Filters'></td>
-      </tr>
-      <tr>
-        <td><img src='.github/demos/demo4.png' width='268' alt='Appearance'></td>
-        <td><img src='.github/demos/demo5.png' width='268' alt='Chats'></td>
-      </tr>
-    </table>
-  </details>
-</h3>
+Сборки StaroGram Desktop появятся в [Releases](https://github.com/steamcs2fear-spec/StaroGram-Desktop/releases)
+после первого релиза.
 
-## Downloads
+## Сборка из исходников
 
-### Windows
+Инструкция по сборке: [docs/building-win-x64.md](docs/building-win-x64.md)
 
-#### Official
+## Лицензия
 
-You can download prebuilt Windows binary from [Releases tab](https://github.com/AyuGram/AyuGramDesktop/releases) or from
-the [Telegram channel](https://t.me/AyuGramReleases).
+GPL-3.0. Основано на:
+- [AyuGram Desktop](https://github.com/AyuGram/AyuGramDesktop)
+- [Telegram Desktop](https://github.com/telegramdesktop/tdesktop)
 
-#### Winget
+## Автор форка
 
-```bash
-winget install RadolynLabs.AyuGramDesktop
-```
-
-#### Scoop
-
-```bash
-scoop bucket add extras
-scoop install ayugram
-```
-
-#### Self-built
-
-Follow [official guide](https://github.com/AyuGram/AyuGramDesktop/blob/dev/docs/building-win-x64.md) if you want to
-build by yourself.
-
-### macOS
-
-#### Official
-
-You can download prebuilt macOS package from [Releases tab](https://github.com/AyuGram/AyuGramDesktop/releases).
-
-#### Homebrew
-
-```bash
-brew install --cask ayugram
-```
-
-### Arch Linux
-
-#### From source (recommended)
-
-Install `ayugram-desktop` from [AUR](https://aur.archlinux.org/packages/ayugram-desktop).
-
-#### Prebuilt binaries
-
-Install `ayugram-desktop-bin` from [AUR](https://aur.archlinux.org/packages/ayugram-desktop-bin).
-
-Note: these binaries aren't officially maintained by us.
-
-### NixOS
-
-#### Flake (recommended)
-
-Install `ayugram-desktop` from [ndfined-crp/ayugram-desktop](https://github.com/ndfined-crp/ayugram-desktop)
-
-#### Nixpkgs
-
-Install `ayugram-desktop` from [nixpkgs](https://search.nixos.org/packages?channel=unstable&show=ayugram-desktop)
-
-### ALT Linux
-
-[Sisyphus](https://packages.altlinux.org/en/sisyphus/srpms/ayugram-desktop/)
-
-### Gentoo Linux
-
-See [this repository](https://codeberg.org/OverLessArtem/ayugram-ebuild-gentoo) for installation manual.
-
-### Void Linux
-See [this repository](https://codeberg.org/OverLessArtem/ayugram-template-void) for installation manual.
-
-### EPM
-
-`epm play ayugram`
-
-### Fedora
-
-From [RPM Fusion](https://admin.rpmfusion.org/pkgdb/package/free/ayugram-desktop/) repository.
-
-```bash
-dnf install ayugram-desktop
-```
-
-### Any other Linux distro
-
-Flatpak: https://github.com/0FL01/AyuGramDesktop-flatpak
-
-Or follow the [official guide](https://github.com/AyuGram/AyuGramDesktop/blob/dev/docs/building-linux.md).
-
-## Donation
-
-Enjoy using **AyuGram**? Consider sending us a tip!
-
-[Here's available methods.](https://docs.ayugram.one/donate/)
+[d1smay (steamcs2fear-spec)](https://github.com/steamcs2fear-spec)
 
 ## Credits
 
 ### Telegram clients
 
 - [Telegram Desktop](https://github.com/telegramdesktop/tdesktop)
+- [AyuGram Desktop](https://github.com/AyuGram/AyuGramDesktop)
 - [Kotatogram](https://github.com/kotatogram/kotatogram-desktop)
 - [64Gram](https://github.com/TDesktop-x64/tdesktop)
 - [Forkgram](https://github.com/forkgram/tdesktop)
@@ -150,7 +63,3 @@ Enjoy using **AyuGram**? Consider sending us a tip!
 ### Icons
 
 - [Solar Icon Set](https://www.figma.com/community/file/1166831539721848736)
-
-### Bots
-
-- [TelegramDB](https://t.me/tgdatabase) for username lookup by ID (until closing free inline mode at 2 April 2026)
