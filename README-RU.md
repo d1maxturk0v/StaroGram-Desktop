@@ -1,6 +1,6 @@
 # StaroGram Desktop
 
-![StaroGram Logo](.github/AyuGram.png)
+![StaroGram Logo](.github/StaroGram.png)
 
 [ [English](README.md) | Русский ]
 
@@ -41,7 +41,7 @@ GPL-3.0. Основано на:
 
 ## Автор форка
 
-[d1smay (steamcs2fear-spec)](https://github.com/steamcs2fear-spec)
+[d1smay (d1maxturk0v)](https://github.com/d1maxturk0v)
 
 ## Credits
 
