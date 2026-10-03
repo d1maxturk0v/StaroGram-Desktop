@@ -681,7 +681,7 @@ void BuildOther(SectionBuilder &builder, StaroSectionBuilder &ayu) {
 const auto kMeta = BuildHelper({
 	.id = StaroGhost::Id(),
 	.parentId = StaroMain::Id(),
-	.title = u"AyuGram"_q,
+	.title = u"StaroGram"_q,
 	.icon = &st::menuIconGroupReactions,
 }, [](SectionBuilder &builder) {
 	auto ayu = StaroSectionBuilder(builder);
@@ -700,7 +700,7 @@ const auto kMeta = BuildHelper({
 } // namespace
 
 rpl::producer<QString> StaroGhost::title() {
-	return rpl::single(QString("AyuGram"));
+	return rpl::single(QString("StaroGram"));
 }
 
 StaroGhost::StaroGhost(
