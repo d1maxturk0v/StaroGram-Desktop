@@ -17,7 +17,7 @@
 #include "main/main_domain.h"
 #include "main/main_session.h"
 
-namespace AyuWorker {
+namespace StaroWorker {
 
 void runOnce();
 
@@ -64,7 +64,7 @@ void runOnce() {
 					state[id] = true;
 				}
 
-				const auto &ghost = AyuSettings::ghost(session);
+				const auto &ghost = StaroSettings::ghost(session);
 				if (!ghost.sendOfflinePacketAfterOnline()) {
 					continue;
 				}

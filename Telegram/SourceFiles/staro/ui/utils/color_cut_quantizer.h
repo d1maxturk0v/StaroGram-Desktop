@@ -12,7 +12,7 @@
 #include <queue>
 #include <vector>
 
-namespace Ayu::Ui {
+namespace Staro::Ui {
 
 class ColorCutQuantizer
 {

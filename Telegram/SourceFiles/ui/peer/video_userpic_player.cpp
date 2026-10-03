@@ -67,10 +67,10 @@ QImage VideoUserpicPlayer::frame(QSize size, not_null<PeerData*> peer) {
 		: peer->isForum()
 		? Ui::PeerUserpicShape::Forum
 		: Ui::PeerUserpicShape::Circle;
-	const auto ayuOverride = AyuUserpic::ShouldOverrideShape(peerShape);
+	const auto ayuOverride = StaroUserpic::ShouldOverrideShape(peerShape);
 
 	if (ayuOverride) {
-		AyuUserpic::ApplyFrameRounding(
+		StaroUserpic::ApplyFrameRounding(
 			request,
 			_roundingCorners,
 			_ellipseMask,

@@ -243,7 +243,7 @@ PeerBadge::~PeerBadge() = default;
 int PeerBadge::drawGetWidth(Painter &p, Descriptor &&descriptor) {
 	Expects(descriptor.customEmojiRepaint != nullptr);
 
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 	const auto hidePremiumStatuses = settings.hidePremiumStatuses();
 
 	const auto peer = descriptor.peer;

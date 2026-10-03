@@ -34,7 +34,7 @@
 namespace Settings {
 
 using namespace Builder;
-using namespace AyuBuilder;
+using namespace StaroBuilder;
 
 namespace {
 
@@ -50,7 +50,7 @@ bool HasDrawerBots(not_null<Window::SessionController*> controller) {
 	return false;
 }
 
-void BuildAppIcon(SectionBuilder &builder, AyuSectionBuilder &ayu) {
+void BuildAppIcon(SectionBuilder &builder, StaroSectionBuilder &ayu) {
 	builder.addSubsectionTitle({
 		.id = u"ayu/appIcon"_q,
 		.title = tr::ayu_AppIconHeader(),
@@ -69,8 +69,8 @@ void BuildAppIcon(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 	ayu.addSettingToggle({
 		.id = u"ayu/hideNotificationBadge"_q,
 		.title = tr::ayu_HideNotificationBadge(),
-		.getter = &AyuSettings::hideNotificationBadge,
-		.setter = &AyuSettings::setHideNotificationBadge,
+		.getter = &StaroSettings::hideNotificationBadge,
+		.setter = &StaroSettings::setHideNotificationBadge,
 	});
 	builder.addSkip();
 	builder.addDividerText(tr::ayu_HideNotificationBadgeDescription());
@@ -81,8 +81,8 @@ void BuildAppIcon(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 #endif
 }
 
-void BuildAvatarCorners(SectionBuilder &builder, AyuSectionBuilder &ayu) {
-	auto *settings = &AyuSettings::getInstance();
+void BuildAvatarCorners(SectionBuilder &builder, StaroSectionBuilder &ayu) {
+	auto *settings = &StaroSettings::getInstance();
 	const auto controller = builder.controller();
 
 	const auto mapRadius = [](int val)
@@ -162,13 +162,13 @@ void BuildAvatarCorners(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 		.steps = AyuUiSettings::kMaxAvatarCorners + 1,
 		.current = settings->avatarCorners(),
 		.onChanged = [=](int val) {
-			AyuSettings::getInstance().setAvatarCorners(val);
+			StaroSettings::getInstance().setAvatarCorners(val);
 			if (previewRaw) {
 				previewRaw->update();
 			}
 		},
 		.onFinalChanged = [=](int val) {
-			AyuSettings::getInstance().setAvatarCorners(val);
+			StaroSettings::getInstance().setAvatarCorners(val);
 			ShowRestartPrompt(controller);
 		},
 	});
@@ -176,8 +176,8 @@ void BuildAvatarCorners(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 	ayu.addSettingToggle({
 		.id = u"ayu/singleCornerRadius"_q,
 		.title = tr::ayu_SingleCornerRadius(),
-		.getter = &AyuSettings::singleCornerRadius,
-		.setter = &AyuSettings::setSingleCornerRadius,
+		.getter = &StaroSettings::singleCornerRadius,
+		.setter = &StaroSettings::setSingleCornerRadius,
 	});
 
 	builder.addSkip();
@@ -185,8 +185,8 @@ void BuildAvatarCorners(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 	builder.addSkip();
 }
 
-void BuildAppearance(SectionBuilder &builder, AyuSectionBuilder &ayu) {
-	auto *settings = &AyuSettings::getInstance();
+void BuildAppearance(SectionBuilder &builder, StaroSectionBuilder &ayu) {
+	auto *settings = &StaroSettings::getInstance();
 
 	builder.addSubsectionTitle(tr::ayu_CategoryAppearance());
 
@@ -194,21 +194,21 @@ void BuildAppearance(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 		.id = u"ayu/materialSwitches"_q,
 		.altIds = { u"ayu/newSwitchStyle"_q },
 		.title = tr::ayu_MaterialSwitches(),
-		.getter = &AyuSettings::materialSwitches,
-		.setter = &AyuSettings::setMaterialSwitches,
+		.getter = &StaroSettings::materialSwitches,
+		.setter = &StaroSettings::setMaterialSwitches,
 	});
 	ayu.addSettingToggle({
 		.id = u"ayu/disableCustomBackgrounds"_q,
 		.altIds = { u"ayu/customThemes"_q },
 		.title = tr::ayu_DisableCustomBackgrounds(),
-		.getter = &AyuSettings::disableCustomBackgrounds,
-		.setter = &AyuSettings::setDisableCustomBackgrounds,
+		.getter = &StaroSettings::disableCustomBackgrounds,
+		.setter = &StaroSettings::setDisableCustomBackgrounds,
 	});
 	ayu.addSettingToggle({
 		.id = u"ayu/hidePremiumStatuses"_q,
 		.title = tr::ayu_HidePremiumStatuses(),
-		.getter = &AyuSettings::hidePremiumStatuses,
-		.setter = &AyuSettings::setHidePremiumStatuses,
+		.getter = &StaroSettings::hidePremiumStatuses,
+		.setter = &StaroSettings::setHidePremiumStatuses,
 	});
 
 	const auto controller = builder.controller();
@@ -221,10 +221,10 @@ void BuildAppearance(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 				? tr::ayu_FontDefault(tr::now)
 				: settings->monoFont()),
 		.onClick = [=] {
-			AyuUi::FontSelectorBox::Show(
+			StaroUi::FontSelectorBox::Show(
 				controller,
 				[=](const QString &font) {
-					AyuSettings::getInstance().setMonoFont(font);
+					StaroSettings::getInstance().setMonoFont(font);
 				});
 		},
 	});
@@ -232,57 +232,57 @@ void BuildAppearance(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 	ayu.addSectionDivider();
 }
 
-void BuildChatFolders(SectionBuilder &builder, AyuSectionBuilder &ayu) {
+void BuildChatFolders(SectionBuilder &builder, StaroSectionBuilder &ayu) {
 	builder.addSubsectionTitle(tr::ayu_ChatFoldersHeader());
 
 	ayu.addSettingToggle({
 		.id = u"ayu/hideNotificationCounters"_q,
 		.altIds = { u"ayu/tabCounter"_q },
 		.title = tr::ayu_HideNotificationCounters(),
-		.getter = &AyuSettings::hideNotificationCounters,
-		.setter = &AyuSettings::setHideNotificationCounters,
+		.getter = &StaroSettings::hideNotificationCounters,
+		.setter = &StaroSettings::setHideNotificationCounters,
 	});
 	ayu.addSettingToggle({
 		.id = u"ayu/hideAllChatsFolder"_q,
 		.altIds = { u"ayu/hideAllChats"_q },
 		.title = tr::ayu_HideAllChats(),
-		.getter = &AyuSettings::hideAllChatsFolder,
-		.setter = &AyuSettings::setHideAllChatsFolder,
+		.getter = &StaroSettings::hideAllChatsFolder,
+		.setter = &StaroSettings::setHideAllChatsFolder,
 	});
 
 	ayu.addSectionDivider();
 }
 
-void BuildTrayElements(SectionBuilder &builder, AyuSectionBuilder &ayu) {
+void BuildTrayElements(SectionBuilder &builder, StaroSectionBuilder &ayu) {
 	builder.addSubsectionTitle(tr::ayu_TrayElementsHeader());
 
 	ayu.addSettingToggle({
 		.id = u"ayu/showGhostToggleInTray"_q,
 		.title = tr::ayu_EnableGhostModeTray(),
-		.getter = &AyuSettings::showGhostToggleInTray,
-		.setter = &AyuSettings::setShowGhostToggleInTray,
+		.getter = &StaroSettings::showGhostToggleInTray,
+		.setter = &StaroSettings::setShowGhostToggleInTray,
 	});
 
 #if defined Q_OS_WIN || defined Q_OS_MAC
 	ayu.addSettingToggle({
 		.id = u"ayu/showStreamerToggleInTray"_q,
 		.title = tr::ayu_EnableStreamerModeTray(),
-		.getter = &AyuSettings::showStreamerToggleInTray,
-		.setter = &AyuSettings::setShowStreamerToggleInTray,
+		.getter = &StaroSettings::showStreamerToggleInTray,
+		.setter = &StaroSettings::setShowStreamerToggleInTray,
 	});
 #endif
 
 	ayu.addSectionDivider();
 }
 
-void BuildDrawerElements(SectionBuilder &builder, AyuSectionBuilder &ayu) {
+void BuildDrawerElements(SectionBuilder &builder, StaroSectionBuilder &ayu) {
 	builder.addSubsectionTitle(tr::ayu_DrawerElementsHeader());
 
 	ayu.addSettingToggle({
 		.id = u"ayu/showMyProfileInDrawer"_q,
 		.title = tr::lng_menu_my_profile(),
-		.getter = &AyuSettings::showMyProfileInDrawer,
-		.setter = &AyuSettings::setShowMyProfileInDrawer,
+		.getter = &StaroSettings::showMyProfileInDrawer,
+		.setter = &StaroSettings::setShowMyProfileInDrawer,
 		.icon = { &st::menuIconProfile },
 	});
 
@@ -291,8 +291,8 @@ void BuildDrawerElements(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 		ayu.addSettingToggle({
 			.id = u"ayu/showBotsInDrawer"_q,
 			.title = tr::lng_filters_type_bots(),
-			.getter = &AyuSettings::showBotsInDrawer,
-			.setter = &AyuSettings::setShowBotsInDrawer,
+			.getter = &StaroSettings::showBotsInDrawer,
+			.setter = &StaroSettings::setShowBotsInDrawer,
 			.icon = { &st::menuIconBot },
 		});
 	}
@@ -300,64 +300,64 @@ void BuildDrawerElements(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 	ayu.addSettingToggle({
 		.id = u"ayu/showNewGroupInDrawer"_q,
 		.title = tr::lng_create_group_title(),
-		.getter = &AyuSettings::showNewGroupInDrawer,
-		.setter = &AyuSettings::setShowNewGroupInDrawer,
+		.getter = &StaroSettings::showNewGroupInDrawer,
+		.setter = &StaroSettings::setShowNewGroupInDrawer,
 		.icon = { &st::menuIconGroups },
 	});
 	ayu.addSettingToggle({
 		.id = u"ayu/showNewChannelInDrawer"_q,
 		.title = tr::lng_create_channel_title(),
-		.getter = &AyuSettings::showNewChannelInDrawer,
-		.setter = &AyuSettings::setShowNewChannelInDrawer,
+		.getter = &StaroSettings::showNewChannelInDrawer,
+		.setter = &StaroSettings::setShowNewChannelInDrawer,
 		.icon = { &st::menuIconChannel },
 	});
 	ayu.addSettingToggle({
 		.id = u"ayu/showContactsInDrawer"_q,
 		.title = tr::lng_menu_contacts(),
-		.getter = &AyuSettings::showContactsInDrawer,
-		.setter = &AyuSettings::setShowContactsInDrawer,
+		.getter = &StaroSettings::showContactsInDrawer,
+		.setter = &StaroSettings::setShowContactsInDrawer,
 		.icon = { &st::menuIconUserShow },
 	});
 	ayu.addSettingToggle({
 		.id = u"ayu/showCallsInDrawer"_q,
 		.title = tr::lng_menu_calls(),
-		.getter = &AyuSettings::showCallsInDrawer,
-		.setter = &AyuSettings::setShowCallsInDrawer,
+		.getter = &StaroSettings::showCallsInDrawer,
+		.setter = &StaroSettings::setShowCallsInDrawer,
 		.icon = { &st::menuIconPhone },
 	});
 	ayu.addSettingToggle({
 		.id = u"ayu/showSavedMessagesInDrawer"_q,
 		.title = tr::lng_saved_messages(),
-		.getter = &AyuSettings::showSavedMessagesInDrawer,
-		.setter = &AyuSettings::setShowSavedMessagesInDrawer,
+		.getter = &StaroSettings::showSavedMessagesInDrawer,
+		.setter = &StaroSettings::setShowSavedMessagesInDrawer,
 		.icon = { &st::menuIconSavedMessages },
 	});
 	ayu.addSettingToggle({
 		.id = u"ayu/showLReadToggleInDrawer"_q,
 		.title = tr::ayu_LReadMessages(),
-		.getter = &AyuSettings::showLReadToggleInDrawer,
-		.setter = &AyuSettings::setShowLReadToggleInDrawer,
+		.getter = &StaroSettings::showLReadToggleInDrawer,
+		.setter = &StaroSettings::setShowLReadToggleInDrawer,
 		.icon = { &st::ayuLReadMenuIcon },
 	});
 	ayu.addSettingToggle({
 		.id = u"ayu/showSReadToggleInDrawer"_q,
 		.title = tr::ayu_SReadMessages(),
-		.getter = &AyuSettings::showSReadToggleInDrawer,
-		.setter = &AyuSettings::setShowSReadToggleInDrawer,
+		.getter = &StaroSettings::showSReadToggleInDrawer,
+		.setter = &StaroSettings::setShowSReadToggleInDrawer,
 		.icon = { &st::ayuSReadMenuIcon },
 	});
 	ayu.addSettingToggle({
 		.id = u"ayu/showNightModeToggleInDrawer"_q,
 		.title = tr::lng_menu_night_mode(),
-		.getter = &AyuSettings::showNightModeToggleInDrawer,
-		.setter = &AyuSettings::setShowNightModeToggleInDrawer,
+		.getter = &StaroSettings::showNightModeToggleInDrawer,
+		.setter = &StaroSettings::setShowNightModeToggleInDrawer,
 		.icon = { &st::menuIconNightMode },
 	});
 	ayu.addSettingToggle({
 		.id = u"ayu/showGhostToggleInDrawer"_q,
 		.title = tr::ayu_GhostModeToggle(),
-		.getter = &AyuSettings::showGhostToggleInDrawer,
-		.setter = &AyuSettings::setShowGhostToggleInDrawer,
+		.getter = &StaroSettings::showGhostToggleInDrawer,
+		.setter = &StaroSettings::setShowGhostToggleInDrawer,
 		.icon = { &st::ayuGhostIcon },
 	});
 
@@ -365,8 +365,8 @@ void BuildDrawerElements(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 	ayu.addSettingToggle({
 		.id = u"ayu/showStreamerToggleInDrawer"_q,
 		.title = tr::ayu_StreamerModeToggle(),
-		.getter = &AyuSettings::showStreamerToggleInDrawer,
-		.setter = &AyuSettings::setShowStreamerToggleInDrawer,
+		.getter = &StaroSettings::showStreamerToggleInDrawer,
+		.setter = &StaroSettings::setShowStreamerToggleInDrawer,
 		.icon = { &st::ayuStreamerModeMenuIcon },
 	});
 #endif
@@ -375,12 +375,12 @@ void BuildDrawerElements(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 }
 
 const auto kMeta = BuildHelper({
-	.id = AyuAppearance::Id(),
-	.parentId = AyuMain::Id(),
+	.id = StaroAppearance::Id(),
+	.parentId = StaroMain::Id(),
 	.title = &tr::ayu_CategoryAppearance,
 	.icon = &st::menuIconPalette,
 }, [](SectionBuilder &builder) {
-	auto ayu = AyuSectionBuilder(builder);
+	auto ayu = StaroSectionBuilder(builder);
 
 	builder.addSkip();
 	BuildAppIcon(builder, ayu);
@@ -394,25 +394,25 @@ const auto kMeta = BuildHelper({
 
 } // namespace
 
-rpl::producer<QString> AyuAppearance::title() {
+rpl::producer<QString> StaroAppearance::title() {
 	return tr::ayu_CategoryAppearance();
 }
 
-AyuAppearance::AyuAppearance(
+StaroAppearance::StaroAppearance(
 	QWidget *parent,
 	not_null<Window::SessionController*> controller)
 : Section(parent, controller) {
 	setupContent();
 }
 
-void AyuAppearance::setupContent() {
+void StaroAppearance::setupContent() {
 	const auto content = Ui::CreateChild<Ui::VerticalLayout>(this);
 	build(content, kMeta.build);
 	Ui::ResizeFitChild(this, content);
 }
 
-Type AyuAppearanceId() {
-	return AyuAppearance::Id();
+Type StaroAppearanceId() {
+	return StaroAppearance::Id();
 }
 
 } // namespace Settings

@@ -913,7 +913,7 @@ void StickerSetBox::updateButtons() {
 		const auto addPackIdActions = [=](Ui::PopupMenu *menu)
 		{
 			if (type == Data::StickersType::Stickers || type == Data::StickersType::Emoji) {
-				const auto &settings = AyuSettings::getInstance();
+				const auto &settings = StaroSettings::getInstance();
 				const auto weak = base::make_weak(this);
 				const auto session = _session;
 				const auto setId = _inner->setId();
@@ -1736,7 +1736,7 @@ void StickerSetBox::Inner::contextMenuEvent(QContextMenuEvent *e) {
 				}
 			}, &st::menuIconCopy);
 
-			const auto &settings = AyuSettings::getInstance();
+			const auto &settings = StaroSettings::getInstance();
 			if (settings.showPeerId() != PeerIdDisplay::Hidden) {
 				_menu->addAction(tr::ayu_ContextCopyID(tr::now),
 								 [=]

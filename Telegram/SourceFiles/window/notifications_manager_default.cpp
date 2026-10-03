@@ -731,8 +731,8 @@ Notification::Notification(
 
 	show();
 
-	if (AyuSettings::getInstance().streamerMode()) {
-		AyuFeatures::StreamerMode::hideWidgetWindow(this);
+	if (StaroSettings::getInstance().streamerMode()) {
+		StaroFeatures::StreamerMode::hideWidgetWindow(this);
 	}
 }
 
@@ -1301,8 +1301,8 @@ HideAllButton::HideAllButton(
 
 	show();
 
-	if (AyuSettings::getInstance().streamerMode()) {
-		AyuFeatures::StreamerMode::hideWidgetWindow(this);
+	if (StaroSettings::getInstance().streamerMode()) {
+		StaroFeatures::StreamerMode::hideWidgetWindow(this);
 	}
 }
 

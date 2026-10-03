@@ -3026,7 +3026,7 @@ void VoiceRecordBar::stopRecording(StopType type, bool ttlBeforeHide) {
 								close();
 							});
 
-						const auto &settings = AyuSettings::getInstance();
+						const auto &settings = StaroSettings::getInstance();
 						if (settings.roundConfirmation()) {
 							_show->showBox(Ui::MakeConfirmBox(
 								{
@@ -3076,7 +3076,7 @@ void VoiceRecordBar::stopRecording(StopType type, bool ttlBeforeHide) {
 					close();
 				});
 
-			const auto &settings = AyuSettings::getInstance();
+			const auto &settings = StaroSettings::getInstance();
 			if (settings.voiceConfirmation()) {
 				_show->showBox(Ui::MakeConfirmBox(
 					{
@@ -3156,7 +3156,7 @@ void VoiceRecordBar::requestToSendWithOptions(Api::SendOptions options) {
 		}
 
 		const auto video = !_data.minithumbs.isNull();
-		const auto &settings = AyuSettings::getInstance();
+		const auto &settings = StaroSettings::getInstance();
 		auto sendVoiceCallback = crl::guard(
 			this,
 			[=, this](Fn<void()> &&close)

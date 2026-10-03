@@ -10,7 +10,7 @@
 #include <array>
 #include <cmath>
 
-namespace Ayu::Ui {
+namespace Staro::Ui {
 
 class ColorUtils
 {

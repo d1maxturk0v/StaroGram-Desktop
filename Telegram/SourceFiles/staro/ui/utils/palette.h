@@ -11,7 +11,7 @@
 #include <QPixmap>
 #include <vector>
 
-namespace Ayu::Ui {
+namespace Staro::Ui {
 
 class Swatch
 {

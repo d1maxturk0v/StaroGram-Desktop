@@ -21,7 +21,7 @@ namespace Main {
 class Session;
 }
 
-namespace Ayu::Translator {
+namespace Staro::Translator {
 
 class TranslateManager
 {

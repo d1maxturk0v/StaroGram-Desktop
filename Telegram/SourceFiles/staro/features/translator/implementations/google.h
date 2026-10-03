@@ -13,7 +13,7 @@
 #include <QtCore/QSet>
 #include <QtCore/QString>
 
-namespace Ayu::Translator {
+namespace Staro::Translator {
 
 class GoogleTranslator final : public MultiThreadTranslator
 {

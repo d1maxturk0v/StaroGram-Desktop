@@ -753,11 +753,11 @@ void InnerWidget::preloadMore(Direction direction) {
 	const auto weak = base::make_weak(this);
 
 	crl::async([=] {
-		std::vector<AyuMessageBase> messages;
+		std::vector<StaroMessageBase> messages;
 		if (item) { // viewing edited history
-			messages = AyuMessages::getEditedMessages(item, minId, maxId, perPage);
+			messages = StaroMessages::getEditedMessages(item, minId, maxId, perPage);
 		} else { // viewing deleted messages
-			messages = AyuMessages::getDeletedMessages(peer, topicId, minId, maxId, perPage, searchQuery);
+			messages = StaroMessages::getDeletedMessages(peer, topicId, minId, maxId, perPage, searchQuery);
 		}
 
 		crl::on_main([=, messages = std::move(messages)]() mutable
@@ -778,7 +778,7 @@ void InnerWidget::preloadMore(Direction direction) {
 	});
 }
 
-void InnerWidget::addMessages(Direction direction, const std::vector<AyuMessageBase> &messages) {
+void InnerWidget::addMessages(Direction direction, const std::vector<StaroMessageBase> &messages) {
 	auto up = (direction == Direction::Up);
 	if (messages.empty()) {
 		(up ? _upLoaded : _downLoaded) = true;

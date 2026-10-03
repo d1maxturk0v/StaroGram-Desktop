@@ -8,7 +8,7 @@
 
 class QWidget;
 
-namespace AyuFeatures::StreamerMode {
+namespace StaroFeatures::StreamerMode {
 
 void apply(bool enabled);
 void hideWidgetWindow(QWidget *widget);

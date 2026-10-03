@@ -19,7 +19,7 @@ namespace Main {
 class Session;
 }
 
-namespace Ayu::Translator {
+namespace Staro::Translator {
 
 using CallbackSuccess = std::function<void(const std::vector<TextWithEntities> &)>;
 using CallbackFail = std::function<void()>;

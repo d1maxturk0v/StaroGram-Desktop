@@ -116,17 +116,17 @@ bool DarkTasbarValueValid/* = false*/;
 	static auto ScaledLogoDark = base::flat_map<int, QImage>();
 	static auto ScaledLogoLight = base::flat_map<int, QImage>();
 
-	static auto lastUsedIcon = AyuAssets::currentAppLogoName();
+	static auto lastUsedIcon = StaroAssets::currentAppLogoName();
 
-	if (lastUsedIcon != AyuAssets::currentAppLogoName()) {
-		lastUsedIcon = AyuAssets::currentAppLogoName();
+	if (lastUsedIcon != StaroAssets::currentAppLogoName()) {
+		lastUsedIcon = StaroAssets::currentAppLogoName();
 		ScaledLogo = base::flat_map<int, QImage>();
 		ScaledLogoNoMargin = base::flat_map<int, QImage>();
 		ScaledLogoDark = base::flat_map<int, QImage>();
 		ScaledLogoLight = base::flat_map<int, QImage>();
 	}
 
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 	if (settings.hideNotificationBadge()) {
 		args.count = 0;
 	}

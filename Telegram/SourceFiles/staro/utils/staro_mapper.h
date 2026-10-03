@@ -6,7 +6,7 @@
 // Copyright @Radolyn, 2026
 #pragma once
 
-namespace AyuMapper {
+namespace StaroMapper {
 
 template<typename MTPObject>
 [[nodiscard]] MTPObject deserializeObject(std::vector<char> serialized);

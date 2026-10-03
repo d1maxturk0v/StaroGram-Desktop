@@ -19,7 +19,7 @@
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkRequest>
 
-namespace Ayu::Ui::Itunes {
+namespace Staro::Ui::Itunes {
 namespace {
 
 struct CacheEntry

@@ -34,7 +34,7 @@ namespace {
 QColor performerColor(255, 255, 255, 153); // white 60%
 
 QRgb AdjustHsl(QRgb color, float luminance, float saturation = -1.0f) {
-	auto hsl = Ayu::Ui::ColorUtils::colorToHSL(color);
+	auto hsl = Staro::Ui::ColorUtils::colorToHSL(color);
 
 	if (saturation > 0.0f) {
 		hsl[1] = std::min(hsl[1] * saturation, 1.0f);
@@ -42,7 +42,7 @@ QRgb AdjustHsl(QRgb color, float luminance, float saturation = -1.0f) {
 
 	hsl[2] = std::min(hsl[2] * luminance, 1.0f);
 
-	return Ayu::Ui::ColorUtils::HSLToRGB(hsl);
+	return Staro::Ui::ColorUtils::HSLToRGB(hsl);
 }
 
 QRgb BlendARGB(QRgb color1, QRgb color2, float ratio) {
@@ -139,7 +139,7 @@ Cover GetCurrentCover(
 }
 
 std::optional<QRgb> ExtractColorFromCover(const QPixmap &cover) {
-	const auto palette = Ayu::Ui::Palette::from(cover).generate();
+	const auto palette = Staro::Ui::Palette::from(cover).generate();
 
 	const auto *swatch = palette.darkVibrantSwatch();
 	if (!swatch) {
@@ -159,7 +159,7 @@ std::optional<QRgb> ExtractColorFromCover(const QPixmap &cover) {
 	const auto extractedColor = swatch->rgb();
 
 	constexpr auto whiteColor = qRgb(255, 255, 255);
-	const auto contrast = Ayu::Ui::ColorUtils::calculateContrast(whiteColor, extractedColor);
+	const auto contrast = Staro::Ui::ColorUtils::calculateContrast(whiteColor, extractedColor);
 
 	auto adjustedColor = extractedColor;
 	if (contrast > 15.0f) {
@@ -168,14 +168,14 @@ std::optional<QRgb> ExtractColorFromCover(const QPixmap &cover) {
 		adjustedColor = AdjustHsl(extractedColor, 0.5f);
 	}
 
-	if (Ayu::Ui::ColorUtils::calculateContrast(whiteColor, adjustedColor) < 3.0f) {
+	if (Staro::Ui::ColorUtils::calculateContrast(whiteColor, adjustedColor) < 3.0f) {
 		adjustedColor = BlendARGB(adjustedColor, qRgb(0, 0, 0), 0.3f);
 	}
 
 	return adjustedColor;
 }
 
-AyuMusicButton::AyuMusicButton(
+StaroMusicButton::StaroMusicButton(
 	QWidget *parent,
 	MusicButtonData data,
 	std::optional<QColor> overrideBg,
@@ -210,9 +210,9 @@ AyuMusicButton::AyuMusicButton(
 	setClickedCallback(std::move(handler));
 }
 
-AyuMusicButton::~AyuMusicButton() = default;
+StaroMusicButton::~StaroMusicButton() = default;
 
-void AyuMusicButton::updateData(MusicButtonData data) {
+void StaroMusicButton::updateData(MusicButtonData data) {
 	_performer->setText(data.performer);
 	_title->setText(data.title);
 	_performerText = data.performer;
@@ -223,7 +223,7 @@ void AyuMusicButton::updateData(MusicButtonData data) {
 	resizeToWidth(widthNoMargins());
 }
 
-void AyuMusicButton::downloadAndMakeCover(FullMsgId msgId) {
+void StaroMusicButton::downloadAndMakeCover(FullMsgId msgId) {
 	if (_mediaView && _mediaView->owner()->isSongWithCover() && !_mediaView->thumbnail()) {
 		const auto settings = &_mediaView->owner()->session().settings().autoDownload();
 		// Data::AutoDownload::Type::Music always returns false
@@ -246,12 +246,12 @@ void AyuMusicButton::downloadAndMakeCover(FullMsgId msgId) {
 	makeCover();
 }
 
-void AyuMusicButton::makeCover() {
+void StaroMusicButton::makeCover() {
 	const auto weak = base::make_weak(this);
 	crl::async(
 		[=, mediaView = _mediaView, performerText = _performerText, titleText = _titleText, overrideBg = _overrideBg]()
 		{
-			const auto &settings = AyuSettings::getInstance();
+			const auto &settings = StaroSettings::getInstance();
 			const auto &font = st::infoMusicButtonTitle.style.font;
 			const auto skip = st::normalFont->spacew / 2;
 			const auto size = font->height + skip + font->height;
@@ -259,7 +259,7 @@ void AyuMusicButton::makeCover() {
 			auto cover = GetCurrentCover(mediaView, QSize(size, size));
 
 			if (cover.noCover) {
-				const auto pix = Ayu::Ui::Itunes::FetchCover(performerText, titleText, size);
+				const auto pix = Staro::Ui::Itunes::FetchCover(performerText, titleText, size);
 				if (!pix.isNull()) {
 					const auto img = Image(pix.toImage());
 					const auto args = Images::PrepareArgs{
@@ -298,7 +298,7 @@ void AyuMusicButton::makeCover() {
 					.noCover = cover.noCover,
 				};
 
-				const auto &settings2 = AyuSettings::getInstance();
+				const auto &settings2 = StaroSettings::getInstance();
 				const auto &cover2 = *strong->_currentCover;
 
 				if (!cover2.noCover && settings2.adaptiveCoverColor() && !cover2.pix.isNull()) {
@@ -319,7 +319,7 @@ void AyuMusicButton::makeCover() {
 		});
 }
 
-void AyuMusicButton::paintEvent(QPaintEvent *e) {
+void StaroMusicButton::paintEvent(QPaintEvent *e) {
 	if (!_currentCover) {
 		return;
 	}
@@ -330,7 +330,7 @@ void AyuMusicButton::paintEvent(QPaintEvent *e) {
 	const auto skip = st::normalFont->spacew / 2;
 	const auto size = font->height + skip + font->height;
 
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 	const auto cover = _currentCover.value();
 	if (cover.noCover || !settings.adaptiveCoverColor()) {
 		p.fillRect(e->rect(), cover.bg);
@@ -349,7 +349,7 @@ void AyuMusicButton::paintEvent(QPaintEvent *e) {
 	}
 }
 
-int AyuMusicButton::resizeGetHeight(int newWidth) {
+int StaroMusicButton::resizeGetHeight(int newWidth) {
 	const auto padding = st::infoMusicButtonPadding;
 	const auto &font = st::infoMusicButtonTitle.style.font;
 

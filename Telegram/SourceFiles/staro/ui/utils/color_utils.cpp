@@ -12,7 +12,7 @@
 #include <cmath>
 #include <QColor>
 
-namespace Ayu::Ui {
+namespace Staro::Ui {
 
 std::array<float, 3> ColorUtils::RGBToHSL(int r, int g, int b) {
 	const auto rf = r / 255.0f;

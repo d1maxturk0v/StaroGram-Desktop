@@ -185,7 +185,7 @@ GhostModeAccountSettings *Manager::resolveGhostSettings() const {
 		return nullptr;
 	}
 	const auto session = window->maybeSession();
-	return session ? &AyuSettings::ghost(session) : nullptr;
+	return session ? &StaroSettings::ghost(session) : nullptr;
 }
 
 bool Manager::clipboardHasText() {

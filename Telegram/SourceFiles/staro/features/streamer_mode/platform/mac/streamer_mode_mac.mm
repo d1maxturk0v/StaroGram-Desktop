@@ -11,7 +11,7 @@
 
 #include <Cocoa/Cocoa.h>
 
-namespace AyuFeatures::StreamerMode::Platform {
+namespace StaroFeatures::StreamerMode::Platform {
 
 void SetWindowCaptureExcluded(
 		not_null<QWidget*> widget,

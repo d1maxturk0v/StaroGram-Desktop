@@ -291,7 +291,7 @@ object_ptr<Ui::SlideWrap<Ui::RpWidget>> SetupSharedMediaClassic(
 	const auto addSimilarPeersButton = [&](
 			not_null<PeerData*> peer,
 			const style::icon &icon) {
-		if (AyuSettings::getInstance().hideSimilarChannels()) {
+		if (StaroSettings::getInstance().hideSimilarChannels()) {
 			return;
 		}
 		auto result = AddSimilarPeersButton(

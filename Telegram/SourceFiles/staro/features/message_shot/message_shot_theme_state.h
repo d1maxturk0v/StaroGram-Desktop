@@ -14,7 +14,7 @@
 #include <memory>
 #include <optional>
 
-namespace AyuFeatures::MessageShot {
+namespace StaroFeatures::MessageShot {
 
 enum class SavedThemeApplyResult {
 	AppliedSync,

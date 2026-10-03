@@ -17,7 +17,7 @@
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkRequest>
 
-namespace Ayu::Translator {
+namespace Staro::Translator {
 
 YandexTranslator &YandexTranslator::instance() {
 	static YandexTranslator inst;

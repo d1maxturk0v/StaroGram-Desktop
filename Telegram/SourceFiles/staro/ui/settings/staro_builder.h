@@ -11,11 +11,11 @@
 #include "settings/settings_builder.h"
 #include "settings/settings_common.h"
 
-namespace Settings::AyuBuilder {
+namespace Settings::StaroBuilder {
 
-class AyuSectionBuilder {
+class StaroSectionBuilder {
 public:
-	explicit AyuSectionBuilder(Builder::SectionBuilder &builder);
+	explicit StaroSectionBuilder(Builder::SectionBuilder &builder);
 
 	[[nodiscard]] Builder::SectionBuilder &base();
 

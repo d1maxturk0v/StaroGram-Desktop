@@ -10,7 +10,7 @@
 #include "history/history_item.h"
 #include "main/main_session.h"
 
-namespace AyuForward {
+namespace StaroForward {
 
 bool forwardRichMessage(
 	not_null<Main::Session*> session,

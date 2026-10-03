@@ -32,7 +32,7 @@
 #include <mutex>
 #include <utility>
 
-namespace AyuSync {
+namespace StaroSync {
 namespace {
 
 constexpr auto kDocumentDownloadTimeout = std::chrono::minutes(15);
@@ -900,7 +900,7 @@ bool sendRichMessageSync(not_null<Main::Session*> session,
 			latch->countDown();
 		}).fail([=](const MTP::Error &error)
 		{
-			LOG(("AyuForward: rich message send failed: %1").arg(error.type()));
+			LOG(("StaroForward: rich message send failed: %1").arg(error.type()));
 			latch->countDown();
 		}).send();
 	});

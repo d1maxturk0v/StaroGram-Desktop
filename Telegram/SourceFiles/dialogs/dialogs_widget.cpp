@@ -1113,7 +1113,7 @@ void Widget::chosenRow(const ChosenRow &row) {
 		&& (row.message.fullId.msg == ShowAtUnreadMsgId)
 		&& history->peer->hasActiveStories()
 		&& !history->peer->isSelf()
-		&& !AyuSettings::getInstance().disableStories()) {
+		&& !StaroSettings::getInstance().disableStories()) {
 		controller()->openPeerStories(history->peer->id);
 		return;
 	} else if (userpicCommunity) {
@@ -1750,7 +1750,7 @@ void Widget::setupMainMenuToggle() {
 			? &st::dialogsMenuToggleUnread
 			: &st::dialogsMenuToggleUnreadMuted;
 
-		const auto &settings = AyuSettings::getInstance();
+		const auto &settings = StaroSettings::getInstance();
 		if (settings.hideNotificationCounters()) {
 			icon = nullptr;
 		}
@@ -1761,7 +1761,7 @@ void Widget::setupMainMenuToggle() {
 
 void Widget::setupStories() {
 	// AyuGram disableStories
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 	if (settings.disableStories()) {
 		return;
 	}
@@ -2809,7 +2809,7 @@ void Widget::updateStoriesVisibility() {
 		return;
 	}
 
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 	if (settings.disableStories()) {
 		_stories->setVisible(false);
 		return;

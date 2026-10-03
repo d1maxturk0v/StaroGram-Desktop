@@ -53,7 +53,7 @@ void PaintCommunityUserpicEffect(
 	const auto version = style::PaletteVersion();
 	const auto rgba = color.rgba();
 	const auto peek = size * kPeek;
-	const auto ayuState = AyuUserpic::PackedState();
+	const auto ayuState = StaroUserpic::PackedState();
 	const auto regenerate = cache.image.isNull()
 		|| (cache.size != size)
 		|| (cache.color != rgba)
@@ -80,9 +80,9 @@ void PaintCommunityUserpicEffect(
 		auto q = QPainter(&cache.image);
 		auto hq = PainterHighQualityEnabler(q);
 		const auto gap = size * kGap;
-		const auto rounding = AyuUserpic::ShouldOverrideShape(
+		const auto rounding = StaroUserpic::ShouldOverrideShape(
 			Ui::PeerUserpicShape::Forum)
-			? AyuUserpic::ComputeRadiusF(size)
+			? StaroUserpic::ComputeRadiusF(size)
 			: size * Ui::ForumUserpicRadiusMultiplier();
 
 		// The userpic and every card share a pivot on the userpic's left edge
@@ -152,7 +152,7 @@ void ValidateUserpicCache(
 	const auto full = QSize(size, size);
 	const auto version = style::PaletteVersion();
 	const auto shapeValue = static_cast<uint32>(shape) & 3;
-	const auto ayuState = AyuUserpic::PackedState();
+	const auto ayuState = StaroUserpic::PackedState();
 	const auto regenerate = (view.cached.size() != QSize(size, size))
 		|| (view.shape != shapeValue)
 		|| (view.ayuState != ayuState)
@@ -167,7 +167,7 @@ void ValidateUserpicCache(
 	view.paletteVersion = version;
 	view.ayuState = ayuState;
 
-	const auto ayuOverride = AyuUserpic::ShouldOverrideShape(shape);
+	const auto ayuOverride = StaroUserpic::ShouldOverrideShape(shape);
 
 	if (cloud) {
 		view.cached = cloud->scaled(

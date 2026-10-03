@@ -33,7 +33,7 @@ base::options::option<QString> OptionTranslateUrlTemplate({
 });
 
 [[nodiscard]] TranslationProvider ResolveTranslateProvider() {
-	const auto provider = AyuSettings::getInstance().translationProvider();
+	const auto provider = StaroSettings::getInstance().translationProvider();
 	if ((provider == TranslationProvider::Native)
 		&& !Platform::IsTranslateProviderAvailable()) {
 		return TranslationProvider::Telegram;
@@ -56,7 +56,7 @@ std::unique_ptr<TranslateProvider> CreateTranslateProvider(
 	switch (provider) {
 	case TranslationProvider::Google:
 	case TranslationProvider::Yandex:
-		return CreateAyuTranslateProvider(session, provider);
+		return CreateStaroTranslateProvider(session, provider);
 	case TranslationProvider::Native:
 		if (auto native = Platform::CreateTranslateProvider()) {
 			return native;

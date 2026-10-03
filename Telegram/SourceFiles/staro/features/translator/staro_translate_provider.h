@@ -17,7 +17,7 @@ class Session;
 
 namespace Ui {
 
-[[nodiscard]] std::unique_ptr<TranslateProvider> CreateAyuTranslateProvider(
+[[nodiscard]] std::unique_ptr<TranslateProvider> CreateStaroTranslateProvider(
 	not_null<Main::Session*> session,
 	TranslationProvider provider);
 

@@ -940,7 +940,7 @@ void SetupAccountsWrap(
 			pen.setWidthF(line);
 			p.setPen(pen);
 			p.setBrush(Qt::NoBrush);
-			AyuUserpic::PaintShape(p, rect);
+			StaroUserpic::PaintShape(p, rect);
 		}
 	}, state->userpic.lifetime());
 

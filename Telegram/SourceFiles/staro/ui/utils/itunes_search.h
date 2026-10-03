@@ -8,7 +8,7 @@
 
 #include <QtGui/QPixmap>
 
-namespace Ayu::Ui::Itunes {
+namespace Staro::Ui::Itunes {
 
 QPixmap FetchCover(const QString &performer,
                    const QString &title,

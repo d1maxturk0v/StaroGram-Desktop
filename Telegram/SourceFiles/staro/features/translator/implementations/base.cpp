@@ -18,7 +18,7 @@
 #include <QtCore/QString>
 #include <QtCore/QTimer>
 
-namespace Ayu::Translator {
+namespace Staro::Translator {
 
 std::vector<QString> desktopUserAgents = {
 	// zen

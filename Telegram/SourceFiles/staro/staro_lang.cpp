@@ -33,28 +33,28 @@ constexpr auto postfixes = {
 	"other"
 };
 
-AyuLanguage *AyuLanguage::instance = nullptr;
+StaroLanguage *StaroLanguage::instance = nullptr;
 
-AyuLanguage::AyuLanguage() = default;
+StaroLanguage::StaroLanguage() = default;
 
-void AyuLanguage::init() {
-	if (!instance) instance = new AyuLanguage;
+void StaroLanguage::init() {
+	if (!instance) instance = new StaroLanguage;
 	instance->loadCachedLanguage();
 }
 
-AyuLanguage *AyuLanguage::currentInstance() {
+StaroLanguage *StaroLanguage::currentInstance() {
 	return instance;
 }
 
-QString AyuLanguage::getCacheDir() const {
+QString StaroLanguage::getCacheDir() const {
 	return cWorkingDir() + u"tdata/staro/languages/"_q;
 }
 
-QString AyuLanguage::getCachePath(const QString &langId) const {
+QString StaroLanguage::getCachePath(const QString &langId) const {
 	return getCacheDir() + langId + u".json"_q;
 }
 
-void AyuLanguage::loadCachedLanguage() {
+void StaroLanguage::loadCachedLanguage() {
 	const auto langPackId = Lang::GetInstance().id();
 	const auto langPackBaseId = Lang::GetInstance().baseId();
 	auto finalLangPackId = langMapping.contains(langPackId) ? langMapping[langPackId] : langPackId;
@@ -89,7 +89,7 @@ void AyuLanguage::loadCachedLanguage() {
 	}
 }
 
-void AyuLanguage::saveCachedLanguage(const QByteArray &json, const QString &langId) {
+void StaroLanguage::saveCachedLanguage(const QByteArray &json, const QString &langId) {
 	const auto cacheDir = getCacheDir();
 	QDir().mkpath(cacheDir);
 
@@ -102,7 +102,7 @@ void AyuLanguage::saveCachedLanguage(const QByteArray &json, const QString &lang
 	}
 }
 
-void AyuLanguage::fetchLanguage(const QString &id, const QString &baseId) {
+void StaroLanguage::fetchLanguage(const QString &id, const QString &baseId) {
 	auto finalLangPackId = langMapping.contains(id) ? langMapping[id] : id;
 	_currentLangId = finalLangPackId.isEmpty() ? baseId : finalLangPackId;
 
@@ -129,7 +129,7 @@ void AyuLanguage::fetchLanguage(const QString &id, const QString &baseId) {
 	connect(_chkReply, SIGNAL(finished()), this, SLOT(fetchFinished()));
 }
 
-void AyuLanguage::fetchFinished() {
+void StaroLanguage::fetchFinished() {
 	if (!_chkReply) return;
 
 	QString langPackBaseId = Lang::GetInstance().baseId();
@@ -156,7 +156,7 @@ void AyuLanguage::fetchFinished() {
 	}
 }
 
-void AyuLanguage::fetchError(QNetworkReply::NetworkError e) {
+void StaroLanguage::fetchError(QNetworkReply::NetworkError e) {
 	LOG(("Network error: %1").arg(e));
 
 	if (e == QNetworkReply::NetworkError::ContentNotFoundError) {
@@ -175,7 +175,7 @@ void AyuLanguage::fetchError(QNetworkReply::NetworkError e) {
 	}
 }
 
-void AyuLanguage::applyLanguageJson(QJsonDocument doc) {
+void StaroLanguage::applyLanguageJson(QJsonDocument doc) {
 	const auto json = doc.object();
 	for (const QString &brokenKey : json.keys()) {
 		auto key = qsl("ayu_") + brokenKey;

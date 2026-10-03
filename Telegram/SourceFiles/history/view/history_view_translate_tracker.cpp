@@ -84,7 +84,7 @@ void TranslateTracker::setup() {
 		}
 	}, _lifetime);
 
-	AyuSettings::getInstance().translationProviderChanges(
+	StaroSettings::getInstance().translationProviderChanges(
 	) | rpl::on_next([=](TranslationProvider) {
 		resetProvider();
 	}, _lifetime);

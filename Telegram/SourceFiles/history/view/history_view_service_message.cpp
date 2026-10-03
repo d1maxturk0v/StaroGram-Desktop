@@ -1003,7 +1003,7 @@ EmptyPainter::EmptyPainter(not_null<History*> history)
 	if (NeedAboutGroup(_history)) {
 		fillAboutGroup();
 	} else if (_history->peer->isUser()
-		&& AyuSettings::getInstance().disableGreetingSticker()) {
+		&& StaroSettings::getInstance().disableGreetingSticker()) {
 		SetText(_header, tr::lng_chat_intro_default_title(tr::now));
 	}
 }

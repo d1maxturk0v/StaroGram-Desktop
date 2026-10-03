@@ -18,8 +18,8 @@ class SessionController;
 
 namespace Settings {
 
-using BoolGetter = bool (AyuSettings::*)() const;
-using BoolSetter = void (AyuSettings::*)(bool);
+using BoolGetter = bool (StaroSettings::*)() const;
+using BoolSetter = void (StaroSettings::*)(bool);
 
 struct NestedEntry
 {

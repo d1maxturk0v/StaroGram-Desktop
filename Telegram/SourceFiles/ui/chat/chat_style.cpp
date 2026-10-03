@@ -50,7 +50,7 @@ void EnsureBlockquoteCache(
 	cache->outlines = colors.outlines;
 	cache->icon = colors.name;
 
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 	if (settings.simpleQuotesAndReplies()) {
 		cache->bg = QColor(0, 0, 0, 0);
 	}

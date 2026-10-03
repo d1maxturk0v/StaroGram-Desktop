@@ -273,7 +273,7 @@ Fn<void()> badgeClickHandler(not_null<PeerData*> peer) {
 			.duration = 3 * crl::time(1000),
 		};
 		if (badge.badge == Info::Profile::BadgeType::ExteraSupporter) {
-			Ayu::Ui::ShowToastWithAction(
+			Staro::Ui::ShowToastWithAction(
 				std::move(config),
 				tr::lng_collectible_learn_more(tr::now),
 				[=] {
@@ -294,7 +294,7 @@ Fn<void()> badgeClickHandler(not_null<PeerData*> peer) {
 }
 
 bool isMessageHidden(const not_null<HistoryItem*> item) {
-	if (AyuState::isHidden(item)) {
+	if (StaroState::isHidden(item)) {
 		return true;
 	}
 
@@ -406,7 +406,7 @@ void MarkAsReadThread(not_null<Data::Thread*> thread) {
 		sendReadReactions(thread);
 	}
 
-	AyuWorker::markAsOnline(&thread->session());
+	StaroWorker::markAsOnline(&thread->session());
 }
 
 void readHistory(not_null<HistoryItem*> message) {
@@ -422,7 +422,7 @@ void readHistory(not_null<HistoryItem*> message) {
 							 return history->session().api().request(MTPchannels_ReadHistory(
 								 channel->inputChannel(),
 								 MTP_int(tillId)
-							 )).done([=] { AyuWorker::markAsOnline(&history->session()); }).send();
+							 )).done([=] { StaroWorker::markAsOnline(&history->session()); }).send();
 						 }
 
 						 return history->session().api().request(MTPmessages_ReadHistory(
@@ -431,7 +431,7 @@ void readHistory(not_null<HistoryItem*> message) {
 						 )).done([=](const MTPmessages_AffectedMessages &result)
 						 {
 							 history->session().api().applyAffectedMessages(history->peer, result);
-							 AyuWorker::markAsOnline(&history->session());
+							 StaroWorker::markAsOnline(&history->session());
 						 }).fail([=]
 						 {
 						 }).send();
@@ -447,7 +447,7 @@ void readHistory(not_null<HistoryItem*> message) {
 }
 
 void markReadAfterAction(not_null<History*> history) {
-	const auto &ghost = AyuSettings::ghost(&history->session());
+	const auto &ghost = StaroSettings::ghost(&history->session());
 	if (ghost.sendReadMessages() || !ghost.markReadAfterAction()) {
 		return;
 	}
@@ -503,7 +503,7 @@ QString formatDateTime(const QDateTime &date) {
 }
 
 QString formatMessageTime(const QTime &time) {
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 
 	const auto format =
 		settings.showMessageSeconds()
@@ -712,7 +712,7 @@ int getScheduleTime(int64 sumSize) {
 }
 
 bool isMessageSavable(const not_null<HistoryItem*> item) {
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 
 	if (!settings.saveDeletedMessages()) {
 		return false;
@@ -732,7 +732,7 @@ void processMessageDelete(not_null<HistoryItem*> item) {
 			item->applyTTL(0);
 		}
 		item->setDeleted();
-		AyuMessages::addDeletedMessage(item);
+		StaroMessages::addDeletedMessage(item);
 	}
 }
 
@@ -1542,7 +1542,7 @@ void getRegistrationDate(not_null<PeerData*> peer, Fn<void(TextWithEntities)> ca
 }
 
 QString getBetterLinkPreview(const QString &url) {
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 	if (!settings.improveLinkPreviews()) {
 		return url;
 	}
@@ -1576,7 +1576,7 @@ void applyGhostScheduling(
 		not_null<Main::Session*> session,
 		Api::SendOptions &options,
 		int delaySeconds) {
-	const auto &ghost = AyuSettings::ghost(session);
+	const auto &ghost = StaroSettings::ghost(session);
 	if (ghost.isUseScheduledMessages() && !options.scheduled) {
 		const auto delay = Core::App().settings().proxy().isEnabled()
 			? (delaySeconds * 6 + 4) / 5 //ceil(delaySeconds * 1.2)

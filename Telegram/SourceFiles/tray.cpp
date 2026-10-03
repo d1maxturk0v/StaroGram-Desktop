@@ -106,12 +106,12 @@ void Tray::rebuildMenu() {
 			[=] { toggleSoundNotifications(); });
 	}
 
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 
 	if (settings.showGhostToggleInTray()) {
-		auto ghostActiveChanges = AyuSettings::getInstance().useGlobalGhostModeValue()
+		auto ghostActiveChanges = StaroSettings::getInstance().useGlobalGhostModeValue()
 			| rpl::map([](bool) {
-				return AyuSettings::ghost().ghostModeActiveValue();
+				return StaroSettings::ghost().ghostModeActiveValue();
 			})
 			| rpl::flatten_latest();
 
@@ -127,7 +127,7 @@ void Tray::rebuildMenu() {
 			std::move(turnGhostModeText),
 			[=]
 			{
-				auto &ghost = AyuSettings::ghost();
+				auto &ghost = StaroSettings::ghost();
 				ghost.setGhostModeEnabled(!ghost.isGhostModeActive());
 			});
 	}
@@ -135,7 +135,7 @@ void Tray::rebuildMenu() {
 	if (settings.showStreamerToggleInTray()) {
 		auto turnStreamerModeText = rpl::combine(
 			_textUpdates.events_starting_with({}),
-			AyuSettings::getInstance().streamerModeValue()
+			StaroSettings::getInstance().streamerModeValue()
 		) | rpl::map([=](auto, bool enabled) {
 			return enabled
 					   ? tr::ayu_DisableStreamerModeTray(tr::now)
@@ -145,7 +145,7 @@ void Tray::rebuildMenu() {
 			std::move(turnStreamerModeText),
 			[]
 			{
-				auto &ayuSettings = AyuSettings::getInstance();
+				auto &ayuSettings = StaroSettings::getInstance();
 				ayuSettings.setStreamerMode(!ayuSettings.streamerMode());
 			});
 	}

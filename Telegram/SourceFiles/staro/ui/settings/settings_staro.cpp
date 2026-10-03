@@ -42,7 +42,7 @@
 namespace Settings {
 
 using namespace Builder;
-using namespace AyuBuilder;
+using namespace StaroBuilder;
 
 namespace {
 
@@ -91,7 +91,7 @@ void PaintAccountOutline(Painter &p, QRect outer) {
 	pen.setWidthF(line);
 	p.setPen(pen);
 	p.setBrush(Qt::NoBrush);
-	AyuUserpic::PaintShape(p, rect);
+	StaroUserpic::PaintShape(p, rect);
 }
 
 class AccountAction final : public Ui::Menu::ItemBase {
@@ -236,7 +236,7 @@ private:
 			});
 			p.setPen(Qt::NoPen);
 			p.setBrush(gradient);
-			AyuUserpic::PaintShape(p, rect);
+			StaroUserpic::PaintShape(p, rect);
 		}
 		{
 			auto hq = PainterHighQualityEnabler(p);
@@ -288,7 +288,7 @@ void selectGhostProfile(GhostPickerState *state, uint64 userId) {
 	auto wasGlobal = (state->selectedUserId.current() == 0);
 	auto nowGlobal = (userId == 0);
 
-	AyuSettings::getInstance().setUseGlobalGhostMode(nowGlobal);
+	StaroSettings::getInstance().setUseGlobalGhostMode(nowGlobal);
 
 	state->selectedUserId = userId;
 
@@ -316,10 +316,10 @@ void BuildGhostEssentials(SectionBuilder &builder) {
 				}
 			}
 
-			if (activeCount <= 1 && !AyuSettings::getInstance().useGlobalGhostMode()) {
+			if (activeCount <= 1 && !StaroSettings::getInstance().useGlobalGhostMode()) {
 				auto userId = controller->session().userId().bare;
-				auto &src = AyuSettings::ghost(userId);
-				auto &dst = AyuSettings::ghost(0);
+				auto &src = StaroSettings::ghost(userId);
+				auto &dst = StaroSettings::ghost(0);
 				dst.setSendReadMessages(src.sendReadMessages());
 				dst.setSendReadStories(src.sendReadStories());
 				dst.setSendOnlinePackets(src.sendOnlinePackets());
@@ -334,10 +334,10 @@ void BuildGhostEssentials(SectionBuilder &builder) {
 				dst.setSendOnlinePacketsLocked(src.sendOnlinePacketsLocked());
 				dst.setSendUploadProgressLocked(src.sendUploadProgressLocked());
 				dst.setSendOfflinePacketAfterOnlineLocked(src.sendOfflinePacketAfterOnlineLocked());
-				AyuSettings::getInstance().setUseGlobalGhostMode(true);
+				StaroSettings::getInstance().setUseGlobalGhostMode(true);
 			}
 
-			const auto isGlobal = AyuSettings::getInstance().useGlobalGhostMode();
+			const auto isGlobal = StaroSettings::getInstance().useGlobalGhostMode();
 			auto initialUserId = isGlobal
 				? uint64(0)
 				: controller->session().userId().bare;
@@ -387,38 +387,38 @@ void BuildGhostEssentials(SectionBuilder &builder) {
 			std::vector checkboxes{
 				NestedEntry{
 					tr::ayu_DontReadMessages(tr::now),
-					[state] { return !AyuSettings::ghost(state->selectedUserId.current()).sendReadMessages(); },
-					[state](bool v) { AyuSettings::ghost(state->selectedUserId.current()).setSendReadMessages(!v); },
-					[state] { return AyuSettings::ghost(state->selectedUserId.current()).sendReadMessagesLocked(); },
-					[state](bool v) { AyuSettings::ghost(state->selectedUserId.current()).setSendReadMessagesLocked(v); }
+					[state] { return !StaroSettings::ghost(state->selectedUserId.current()).sendReadMessages(); },
+					[state](bool v) { StaroSettings::ghost(state->selectedUserId.current()).setSendReadMessages(!v); },
+					[state] { return StaroSettings::ghost(state->selectedUserId.current()).sendReadMessagesLocked(); },
+					[state](bool v) { StaroSettings::ghost(state->selectedUserId.current()).setSendReadMessagesLocked(v); }
 				},
 				NestedEntry{
 					tr::ayu_DontReadStories(tr::now),
-					[state] { return !AyuSettings::ghost(state->selectedUserId.current()).sendReadStories(); },
-					[state](bool v) { AyuSettings::ghost(state->selectedUserId.current()).setSendReadStories(!v); },
-					[state] { return AyuSettings::ghost(state->selectedUserId.current()).sendReadStoriesLocked(); },
-					[state](bool v) { AyuSettings::ghost(state->selectedUserId.current()).setSendReadStoriesLocked(v); }
+					[state] { return !StaroSettings::ghost(state->selectedUserId.current()).sendReadStories(); },
+					[state](bool v) { StaroSettings::ghost(state->selectedUserId.current()).setSendReadStories(!v); },
+					[state] { return StaroSettings::ghost(state->selectedUserId.current()).sendReadStoriesLocked(); },
+					[state](bool v) { StaroSettings::ghost(state->selectedUserId.current()).setSendReadStoriesLocked(v); }
 				},
 				NestedEntry{
 					tr::ayu_DontSendOnlinePackets(tr::now),
-					[state] { return !AyuSettings::ghost(state->selectedUserId.current()).sendOnlinePackets(); },
-					[state](bool v) { AyuSettings::ghost(state->selectedUserId.current()).setSendOnlinePackets(!v); },
-					[state] { return AyuSettings::ghost(state->selectedUserId.current()).sendOnlinePacketsLocked(); },
-					[state](bool v) { AyuSettings::ghost(state->selectedUserId.current()).setSendOnlinePacketsLocked(v); }
+					[state] { return !StaroSettings::ghost(state->selectedUserId.current()).sendOnlinePackets(); },
+					[state](bool v) { StaroSettings::ghost(state->selectedUserId.current()).setSendOnlinePackets(!v); },
+					[state] { return StaroSettings::ghost(state->selectedUserId.current()).sendOnlinePacketsLocked(); },
+					[state](bool v) { StaroSettings::ghost(state->selectedUserId.current()).setSendOnlinePacketsLocked(v); }
 				},
 				NestedEntry{
 					tr::ayu_DontSendUploadProgress(tr::now),
-					[state] { return !AyuSettings::ghost(state->selectedUserId.current()).sendUploadProgress(); },
-					[state](bool v) { AyuSettings::ghost(state->selectedUserId.current()).setSendUploadProgress(!v); },
-					[state] { return AyuSettings::ghost(state->selectedUserId.current()).sendUploadProgressLocked(); },
-					[state](bool v) { AyuSettings::ghost(state->selectedUserId.current()).setSendUploadProgressLocked(v); }
+					[state] { return !StaroSettings::ghost(state->selectedUserId.current()).sendUploadProgress(); },
+					[state](bool v) { StaroSettings::ghost(state->selectedUserId.current()).setSendUploadProgress(!v); },
+					[state] { return StaroSettings::ghost(state->selectedUserId.current()).sendUploadProgressLocked(); },
+					[state](bool v) { StaroSettings::ghost(state->selectedUserId.current()).setSendUploadProgressLocked(v); }
 				},
 				NestedEntry{
 					tr::ayu_SendOfflinePacketAfterOnline(tr::now),
-					[state] { return AyuSettings::ghost(state->selectedUserId.current()).sendOfflinePacketAfterOnline(); },
-					[state](bool v) { AyuSettings::ghost(state->selectedUserId.current()).setSendOfflinePacketAfterOnline(v); },
-					[state] { return AyuSettings::ghost(state->selectedUserId.current()).sendOfflinePacketAfterOnlineLocked(); },
-					[state](bool v) { AyuSettings::ghost(state->selectedUserId.current()).setSendOfflinePacketAfterOnlineLocked(v); }
+					[state] { return StaroSettings::ghost(state->selectedUserId.current()).sendOfflinePacketAfterOnline(); },
+					[state](bool v) { StaroSettings::ghost(state->selectedUserId.current()).setSendOfflinePacketAfterOnline(v); },
+					[state] { return StaroSettings::ghost(state->selectedUserId.current()).sendOfflinePacketAfterOnlineLocked(); },
+					[state](bool v) { StaroSettings::ghost(state->selectedUserId.current()).setSendOfflinePacketAfterOnlineLocked(v); }
 				},
 			};
 
@@ -448,16 +448,16 @@ void BuildGhostEssentials(SectionBuilder &builder) {
 			markReadButton->toggleOn(
 				state->selectedUserId.value()
 				| rpl::map([](uint64 id) {
-					return AyuSettings::ghost(id).markReadAfterActionValue();
+					return StaroSettings::ghost(id).markReadAfterActionValue();
 				}) | rpl::flatten_latest()
 			)->toggledValue(
 			) | rpl::filter(
 				[=](bool enabled) {
-					return enabled != AyuSettings::ghost(state->selectedUserId.current()).markReadAfterAction();
+					return enabled != StaroSettings::ghost(state->selectedUserId.current()).markReadAfterAction();
 				}
 			) | on_next(
 				[=](bool enabled) {
-					auto &ghost = AyuSettings::ghost(state->selectedUserId.current());
+					auto &ghost = StaroSettings::ghost(state->selectedUserId.current());
 					ghost.setMarkReadAfterAction(enabled);
 					if (enabled) {
 						ghost.setUseScheduledMessages(false);
@@ -481,16 +481,16 @@ void BuildGhostEssentials(SectionBuilder &builder) {
 			scheduleButton->toggleOn(
 				state->selectedUserId.value()
 				| rpl::map([](uint64 id) {
-					return AyuSettings::ghost(id).useScheduledMessagesValue();
+					return StaroSettings::ghost(id).useScheduledMessagesValue();
 				}) | rpl::flatten_latest()
 			)->toggledValue(
 			) | rpl::filter(
 				[=](bool enabled) {
-					return enabled != AyuSettings::ghost(state->selectedUserId.current()).useScheduledMessages();
+					return enabled != StaroSettings::ghost(state->selectedUserId.current()).useScheduledMessages();
 				}
 			) | on_next(
 				[=](bool enabled) {
-					auto &ghost = AyuSettings::ghost(state->selectedUserId.current());
+					auto &ghost = StaroSettings::ghost(state->selectedUserId.current());
 					ghost.setUseScheduledMessages(enabled);
 					if (enabled) {
 						ghost.setMarkReadAfterAction(false);
@@ -508,7 +508,7 @@ void BuildGhostEssentials(SectionBuilder &builder) {
 			};
 			const auto silentOptionText = state->selectedUserId.value(
 			) | rpl::map([=](uint64 id) {
-				return AyuSettings::ghost(id).sendWithoutSoundValue(
+				return StaroSettings::ghost(id).sendWithoutSoundValue(
 				) | rpl::map([=](SendWithoutSoundOption value) {
 					return silentOptions[static_cast<int>(value)];
 				});
@@ -526,7 +526,7 @@ void BuildGhostEssentials(SectionBuilder &builder) {
 			silentButton->addClickHandler([=] {
 				controller->show(Box([=](not_null<Ui::GenericBox*> box) {
 					const auto save = [=](int index) {
-						AyuSettings::ghost(state->selectedUserId.current()
+						StaroSettings::ghost(state->selectedUserId.current()
 						).setSendWithoutSound(
 							static_cast<SendWithoutSoundOption>(index));
 					};
@@ -534,7 +534,7 @@ void BuildGhostEssentials(SectionBuilder &builder) {
 						.title = tr::ayu_SendWithoutSoundByDefault(),
 						.options = silentOptions,
 						.initialSelection = static_cast<int>(
-							AyuSettings::ghost(state->selectedUserId.current()
+							StaroSettings::ghost(state->selectedUserId.current()
 							).sendWithoutSound()),
 						.callback = save,
 					});
@@ -556,16 +556,16 @@ void BuildGhostEssentials(SectionBuilder &builder) {
 			suggestGhostModeButton->toggleOn(
 				state->selectedUserId.value()
 				| rpl::map([](uint64 id) {
-					return AyuSettings::ghost(id).suggestGhostModeBeforeViewingStoryValue();
+					return StaroSettings::ghost(id).suggestGhostModeBeforeViewingStoryValue();
 				}) | rpl::flatten_latest()
 			)->toggledValue(
 			) | rpl::filter(
 				[=](bool enabled) {
-					return enabled != AyuSettings::ghost(state->selectedUserId.current()).suggestGhostModeBeforeViewingStory();
+					return enabled != StaroSettings::ghost(state->selectedUserId.current()).suggestGhostModeBeforeViewingStory();
 				}
 			) | on_next(
 				[=](bool enabled) {
-					AyuSettings::ghost(state->selectedUserId.current()).setSuggestGhostModeBeforeViewingStory(enabled);
+					StaroSettings::ghost(state->selectedUserId.current()).setSuggestGhostModeBeforeViewingStory(enabled);
 				},
 				container->lifetime());
 			AddSkip(container);
@@ -635,20 +635,20 @@ void BuildGhostEssentials(SectionBuilder &builder) {
 	});
 }
 
-void BuildSpyEssentials(SectionBuilder &builder, AyuSectionBuilder &ayu) {
+void BuildSpyEssentials(SectionBuilder &builder, StaroSectionBuilder &ayu) {
 	builder.addSubsectionTitle(tr::ayu_SpyEssentialsHeader());
 
 	ayu.addSettingToggle({
 		.id = u"ayu/saveDeletedMessages"_q,
 		.title = tr::ayu_SaveDeletedMessages(),
-		.getter = &AyuSettings::saveDeletedMessages,
-		.setter = &AyuSettings::setSaveDeletedMessages,
+		.getter = &StaroSettings::saveDeletedMessages,
+		.setter = &StaroSettings::setSaveDeletedMessages,
 	});
 	ayu.addSettingToggle({
 		.id = u"ayu/saveMessagesHistory"_q,
 		.title = tr::ayu_SaveMessagesHistory(),
-		.getter = &AyuSettings::saveMessagesHistory,
-		.setter = &AyuSettings::setSaveMessagesHistory,
+		.getter = &StaroSettings::saveMessagesHistory,
+		.setter = &StaroSettings::setSaveMessagesHistory,
 	});
 
 	ayu.addSectionDivider();
@@ -656,35 +656,35 @@ void BuildSpyEssentials(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 	ayu.addSettingToggle({
 		.id = u"ayu/saveForBots"_q,
 		.title = tr::ayu_MessageSavingSaveForBots(),
-		.getter = &AyuSettings::saveForBots,
-		.setter = &AyuSettings::setSaveForBots,
+		.getter = &StaroSettings::saveForBots,
+		.setter = &StaroSettings::setSaveForBots,
 	});
 }
 
-void BuildOther(SectionBuilder &builder, AyuSectionBuilder &ayu) {
+void BuildOther(SectionBuilder &builder, StaroSectionBuilder &ayu) {
 	builder.addSubsectionTitle(tr::ayu_MessageSavingOtherHeader());
 
 	ayu.addSettingToggle({
 		.id = u"ayu/localPremium"_q,
 		.title = tr::ayu_LocalPremium(),
-		.getter = &AyuSettings::localPremium,
-		.setter = &AyuSettings::setLocalPremium,
+		.getter = &StaroSettings::localPremium,
+		.setter = &StaroSettings::setLocalPremium,
 	});
 	ayu.addSettingToggle({
 		.id = u"ayu/disableAds"_q,
 		.title = tr::ayu_DisableAds(),
-		.getter = &AyuSettings::disableAds,
-		.setter = &AyuSettings::setDisableAds,
+		.getter = &StaroSettings::disableAds,
+		.setter = &StaroSettings::setDisableAds,
 	});
 }
 
 const auto kMeta = BuildHelper({
-	.id = AyuGhost::Id(),
-	.parentId = AyuMain::Id(),
+	.id = StaroGhost::Id(),
+	.parentId = StaroMain::Id(),
 	.title = u"AyuGram"_q,
 	.icon = &st::menuIconGroupReactions,
 }, [](SectionBuilder &builder) {
-	auto ayu = AyuSectionBuilder(builder);
+	auto ayu = StaroSectionBuilder(builder);
 
 	builder.addSkip();
 	BuildGhostEssentials(builder);
@@ -699,11 +699,11 @@ const auto kMeta = BuildHelper({
 
 } // namespace
 
-rpl::producer<QString> AyuGhost::title() {
+rpl::producer<QString> StaroGhost::title() {
 	return rpl::single(QString("AyuGram"));
 }
 
-AyuGhost::AyuGhost(
+StaroGhost::StaroGhost(
 	QWidget *parent,
 	not_null<Window::SessionController*> controller)
 : Section(parent, controller)
@@ -711,14 +711,14 @@ AyuGhost::AyuGhost(
 	setupContent();
 }
 
-void AyuGhost::setupContent() {
+void StaroGhost::setupContent() {
 	const auto content = Ui::CreateChild<Ui::VerticalLayout>(this);
 	build(content, kMeta.build);
 	Ui::ResizeFitChild(this, content);
 }
 
-Type AyuGhostId() {
-	return AyuGhost::Id();
+Type StaroGhostId() {
+	return StaroGhost::Id();
 }
 
 } // namespace Settings

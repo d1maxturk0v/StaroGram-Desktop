@@ -297,8 +297,8 @@ void Controller::createWebview(const Webview::StorageId &storageId) {
 
 	const auto window = _window.get();
 
-	if (AyuSettings::getInstance().streamerMode()) {
-		AyuFeatures::StreamerMode::hideWidgetWindow(window);
+	if (StaroSettings::getInstance().streamerMode()) {
+		StaroFeatures::StreamerMode::hideWidgetWindow(window);
 	}
 
 	_webview = std::make_unique<Webview::Window>(

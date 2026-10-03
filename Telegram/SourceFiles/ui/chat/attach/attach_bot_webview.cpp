@@ -1213,7 +1213,7 @@ Panel::Panel(Args &&args)
 	}
 	_widget->setWindowFlag(Qt::WindowStaysOnTopHint, false);
 
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 	auto size = QSize(st::botWebViewPanelSize);
 	if (settings.increaseWebviewHeight()) {
 		size.setHeight(st::botWebViewPanelHeightIncreased);

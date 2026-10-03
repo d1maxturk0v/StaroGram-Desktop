@@ -47,7 +47,7 @@
 #include "window/window_peer_menu.h"
 #include "window/window_session_controller.h"
 
-namespace AyuUi {
+namespace StaroUi {
 
 namespace {
 
@@ -65,7 +65,7 @@ Fn<void()> ClearDeletedMessagesHandler(not_null<Window::SessionController*> cont
 						}
 					}
 				}
-				AyuMessages::clearDeletedMessages(peer, topicId);
+				StaroMessages::clearDeletedMessages(peer, topicId);
 				for (const auto item : items) {
 					item->destroy();
 				}
@@ -247,7 +247,7 @@ bool needToShowItem(ContextMenuVisibility state) {
 		|| (state == ContextMenuVisibility::VisibleWithModifier && base::IsExtendedContextMenuModifierPressed());
 }
 
-void AddAyuGramActions(PeerData *peerData,
+void AddStaroGramActions(PeerData *peerData,
 							   Data::Thread *thread,
 							   not_null<Window::SessionController*> sessionController,
 							   const Window::PeerMenuCallback &addCallback) {
@@ -255,7 +255,7 @@ void AddAyuGramActions(PeerData *peerData,
 		return;
 	}
 
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 	const auto user = peerData->asUser();
 	const auto showFilters = settings.filtersEnabled()
 		&& (!user || user->isBot());
@@ -281,7 +281,7 @@ void AddAyuGramActions(PeerData *peerData,
 						sessionController->dialogId = getDialogIdFromPeer(peerData);
 						sessionController->showExclude = true;
 						sessionController->shadowBan = false;
-						sessionController->showSettings(Settings::AyuFiltersList::Id());
+						sessionController->showSettings(Settings::StaroFiltersList::Id());
 					},
 					&st::menuIconAddToFolder);
 			}
@@ -431,7 +431,7 @@ void AddOpenChannelAction(PeerData *peerData,
 
 void AddShadowBanAction(PeerData *peerData,
 						const Window::PeerMenuCallback &addCallback) {
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 	if (!peerData || !(peerData->isUser() || peerData->isBroadcast()) || !settings.filtersEnabled()) {
 		return;
 	}
@@ -443,13 +443,13 @@ void AddShadowBanAction(PeerData *peerData,
 	}
 
 	const auto realId = getDialogIdFromPeer(peerData);
-	const auto shadowBanned = AyuSettings::getInstance().isShadowBanned(realId);
+	const auto shadowBanned = StaroSettings::getInstance().isShadowBanned(realId);
 	const auto toggleShadowBan = [=]
 	{
 		if (shadowBanned) {
-			AyuSettings::getInstance().removeShadowBan(realId);
+			StaroSettings::getInstance().removeShadowBan(realId);
 		} else {
-			AyuSettings::getInstance().addShadowBan(realId);
+			StaroSettings::getInstance().addShadowBan(realId);
 		}
 	};
 
@@ -496,7 +496,7 @@ void AddHistoryAction(not_null<Ui::PopupMenu*> menu, HistoryItem *item) {
 		return;
 	}
 
-	const auto has = AyuMessages::hasRevisions(item);
+	const auto has = StaroMessages::hasRevisions(item);
 	if (!has) {
 		return;
 	}
@@ -514,7 +514,7 @@ void AddHistoryAction(not_null<Ui::PopupMenu*> menu, HistoryItem *item) {
 }
 
 void AddHideMessageAction(not_null<Ui::PopupMenu*> menu, HistoryItem *item) {
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 	if (!needToShowItem(settings.showHideMessageInContextMenu())) {
 		return;
 	}
@@ -532,7 +532,7 @@ void AddHideMessageAction(not_null<Ui::PopupMenu*> menu, HistoryItem *item) {
 			const auto ids = owner->itemOrItsGroup(item);
 			for (const auto &fullId : ids) {
 				if (const auto current = owner->message(fullId)) {
-					AyuState::hide(current);
+					StaroState::hide(current);
 					current->destroy();
 				}
 			}
@@ -542,7 +542,7 @@ void AddHideMessageAction(not_null<Ui::PopupMenu*> menu, HistoryItem *item) {
 }
 
 void AddUserMessagesAction(not_null<Ui::PopupMenu*> menu, HistoryItem *item) {
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 	if (!needToShowItem(settings.showUserMessagesInContextMenu())) {
 		return;
 	}
@@ -571,7 +571,7 @@ void AddUserMessagesAction(not_null<Ui::PopupMenu*> menu, HistoryItem *item) {
 }
 
 void AddMessageDetailsAction(not_null<Ui::PopupMenu*> menu, HistoryItem *item) {
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 	if (!needToShowItem(settings.showMessageDetailsInContextMenu())) {
 		return;
 	}
@@ -782,7 +782,7 @@ void AddMessageDetailsAction(not_null<Ui::PopupMenu*> menu, HistoryItem *item) {
 }
 
 void AddRepeatMessageAction(not_null<Ui::PopupMenu*> menu, HistoryItem *item, HistoryView::Context context) {
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 	if (!needToShowItem(settings.showRepeatMessageInContextMenu())) {
 		return;
 	}
@@ -843,7 +843,7 @@ void AddRepeatMessageAction(not_null<Ui::PopupMenu*> menu, HistoryItem *item, Hi
 				if (currentItem->richPage() && session->premium()) {
 					if (preserveReply) {
 						crl::async([=] {
-							AyuForward::forwardRichMessage(session, itemId, action);
+							StaroForward::forwardRichMessage(session, itemId, action);
 						});
 					} else {
 						const auto forwardDraft = Data::ForwardDraft{
@@ -883,15 +883,15 @@ void AddRepeatMessageAction(not_null<Ui::PopupMenu*> menu, HistoryItem *item, Hi
 				};
 				auto resolvedDraft = history->resolveForwardDraft(forwardDraft);
 
-				if (AyuForward::isFullAyuForwardNeeded(currentItem)) {
+				if (StaroForward::isFullStaroForwardNeeded(currentItem)) {
 					crl::async([=]
 					{
-						AyuForward::forwardMessages(session, action, false, resolvedDraft);
+						StaroForward::forwardMessages(session, action, false, resolvedDraft);
 					});
-				} else if (AyuForward::isAyuForwardNeeded(currentItem)) {
+				} else if (StaroForward::isStaroForwardNeeded(currentItem)) {
 					crl::async([=]
 					{
-						AyuForward::intelligentForward(session, action, resolvedDraft);
+						StaroForward::intelligentForward(session, action, resolvedDraft);
 					});
 				} else {
 					session->api().forwardMessages(std::move(resolvedDraft), action, [] {});
@@ -912,7 +912,7 @@ void AddReadUntilAction(not_null<Ui::PopupMenu*> menu, HistoryItem *item) {
 		return;
 	}
 
-	const auto &ghost = AyuSettings::ghost(&readItem->history()->session());
+	const auto &ghost = StaroSettings::ghost(&readItem->history()->session());
 	if (ghost.sendReadMessages()) {
 		return;
 	}
@@ -979,7 +979,7 @@ void AddCreateFilterAction(not_null<Ui::PopupMenu*> menu,
 						   not_null<Window::SessionController*> controller,
 						   HistoryItem *item,
 						   const QString &selectedText) {
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 	if (!needToShowItem(settings.showAddFilterInContextMenu()) || !settings.filtersEnabled()) {
 		return;
 	}

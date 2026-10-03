@@ -17,19 +17,19 @@
 #include "history/history_item_components.h"
 #include "main/main_session.h"
 
-namespace AyuMessages {
+namespace StaroMessages {
 
 template<typename DerivedMessage>
-std::vector<AyuMessageBase> convertToBase(const std::vector<DerivedMessage> &messages) {
-	std::vector<AyuMessageBase> based;
+std::vector<StaroMessageBase> convertToBase(const std::vector<DerivedMessage> &messages) {
+	std::vector<StaroMessageBase> based;
 	based.reserve(messages.size());
 	for (const auto &msg : messages) {
-		based.push_back(static_cast<AyuMessageBase>(msg));
+		based.push_back(static_cast<StaroMessageBase>(msg));
 	}
 	return based;
 }
 
-void map(not_null<HistoryItem*> item, AyuMessageBase &message) {
+void map(not_null<HistoryItem*> item, StaroMessageBase &message) {
 	const ID userId = item->history()->owner().session().userId().bare & PeerId::kChatTypeMask;
 
 	message.userId = userId;
@@ -44,7 +44,7 @@ void map(not_null<HistoryItem*> item, AyuMessageBase &message) {
 	}
 	message.messageId = item->id.bare;
 	message.date = item->date();
-	message.flags = AyuMapper::mapItemFlagsToMTPFlags(item);
+	message.flags = StaroMapper::mapItemFlagsToMTPFlags(item);
 
 	if (const auto edited = item->Get<HistoryMessageEdited>()) {
 		message.editDate = edited->date;
@@ -70,7 +70,7 @@ void map(not_null<HistoryItem*> item, AyuMessageBase &message) {
 	// message.replyMarkupSerialized
 	message.entityCreateDate = base::unixtime::now();
 
-	auto serializedText = AyuMapper::serializeTextWithEntities(item);
+	auto serializedText = StaroMapper::serializeTextWithEntities(item);
 	message.text = serializedText.first;
 	message.textEntities = serializedText.second;
 
@@ -92,15 +92,15 @@ void addEditedMessage(not_null<HistoryItem *> item) {
 		return;
 	}
 
-	AyuDatabase::addEditedMessage(message);
+	StaroDatabase::addEditedMessage(message);
 }
 
-std::vector<AyuMessageBase> getEditedMessages(not_null<HistoryItem*> item, ID minId, ID maxId, int totalLimit) {
+std::vector<StaroMessageBase> getEditedMessages(not_null<HistoryItem*> item, ID minId, ID maxId, int totalLimit) {
 	const ID userId = item->history()->owner().session().userId().bare & PeerId::kChatTypeMask;
 	const auto dialogId = getDialogIdFromPeer(item->history()->peer);
 	const auto msgId = item->id.bare;
 
-	return convertToBase(AyuDatabase::getEditedMessages(userId, dialogId, msgId, minId, maxId, totalLimit));
+	return convertToBase(StaroDatabase::getEditedMessages(userId, dialogId, msgId, minId, maxId, totalLimit));
 }
 
 bool hasRevisions(not_null<HistoryItem*> item) {
@@ -108,7 +108,7 @@ bool hasRevisions(not_null<HistoryItem*> item) {
 	const auto dialogId = getDialogIdFromPeer(item->history()->peer);
 	const auto msgId = item->id.bare;
 
-	return AyuDatabase::hasRevisions(userId, dialogId, msgId);
+	return StaroDatabase::hasRevisions(userId, dialogId, msgId);
 }
 
 void addDeletedMessage(not_null<HistoryItem*> item) {
@@ -119,30 +119,30 @@ void addDeletedMessage(not_null<HistoryItem*> item) {
 		return;
 	}
 
-	AyuDatabase::addDeletedMessage(message);
+	StaroDatabase::addDeletedMessage(message);
 }
 
-std::vector<AyuMessageBase>
+std::vector<StaroMessageBase>
 getDeletedMessages(not_null<PeerData*> peer, ID topicId, ID minId, ID maxId, int totalLimit, const QString &searchQuery) {
 	const ID userId = peer->session().userId().bare & PeerId::kChatTypeMask;
 	return convertToBase(
-		AyuDatabase::getDeletedMessages(userId, getDialogIdFromPeer(peer), topicId, minId, maxId, totalLimit, searchQuery.toStdString()));
+		StaroDatabase::getDeletedMessages(userId, getDialogIdFromPeer(peer), topicId, minId, maxId, totalLimit, searchQuery.toStdString()));
 }
 
 bool hasDeletedMessages(not_null<PeerData*> peer, ID topicId) {
 	const ID userId = peer->session().userId().bare & PeerId::kChatTypeMask;
-	return AyuDatabase::hasDeletedMessages(userId, getDialogIdFromPeer(peer), topicId);
+	return StaroDatabase::hasDeletedMessages(userId, getDialogIdFromPeer(peer), topicId);
 }
 
 void removeDeletedMessage(not_null<HistoryItem*> item) {
 	const auto peer = item->history()->peer;
 	const ID userId = peer->session().userId().bare & PeerId::kChatTypeMask;
-	AyuDatabase::removeDeletedMessage(userId, getDialogIdFromPeer(peer), item->id.bare);
+	StaroDatabase::removeDeletedMessage(userId, getDialogIdFromPeer(peer), item->id.bare);
 }
 
 void clearDeletedMessages(not_null<PeerData*> peer, ID topicId) {
 	const ID userId = peer->session().userId().bare & PeerId::kChatTypeMask;
-	AyuDatabase::clearDeletedMessages(userId, getDialogIdFromPeer(peer), topicId);
+	StaroDatabase::clearDeletedMessages(userId, getDialogIdFromPeer(peer), topicId);
 }
 
 }

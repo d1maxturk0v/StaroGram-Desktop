@@ -1127,11 +1127,11 @@ void AddMessageActions(
 		not_null<ListWidget*> list) {
 	if (request.item) {
 		const auto context = request.view ? request.view->context() : Context::History;
-		AyuUi::AddHistoryAction(menu, request.item);
-		AyuUi::AddHideMessageAction(menu, request.item);
-		AyuUi::AddUserMessagesAction(menu, request.item);
-		AyuUi::AddRepeatMessageAction(menu, request.item, context);
-		AyuUi::AddMessageDetailsAction(menu, request.item);
+		StaroUi::AddHistoryAction(menu, request.item);
+		StaroUi::AddHideMessageAction(menu, request.item);
+		StaroUi::AddUserMessagesAction(menu, request.item);
+		StaroUi::AddRepeatMessageAction(menu, request.item, context);
+		StaroUi::AddMessageDetailsAction(menu, request.item);
 	}
 
 	AddPostLinkAction(menu, request);
@@ -1154,8 +1154,8 @@ void AddMessageActions(
 	AddRescheduleAction(menu, request, list);
 
 	if (request.item) {
-		AyuUi::AddReadUntilAction(menu, request.item);
-		AyuUi::AddBurnAction(menu, request.item);
+		StaroUi::AddReadUntilAction(menu, request.item);
+		StaroUi::AddBurnAction(menu, request.item);
 	}
 }
 
@@ -2183,8 +2183,8 @@ void AddWhoReactedAction(
 		not_null<QWidget*> context,
 		not_null<HistoryItem*> item,
 		not_null<Window::SessionController*> controller) {
-	const auto &settings = AyuSettings::getInstance();
-	if (!AyuUi::needToShowItem(settings.showViewsPanelInContextMenu())) {
+	const auto &settings = StaroSettings::getInstance();
+	if (!StaroUi::needToShowItem(settings.showViewsPanelInContextMenu())) {
 		return;
 	}
 
@@ -2659,7 +2659,7 @@ void AddSelectRestrictionAction(
 		not_null<HistoryItem*> item,
 		bool addIcon) {
 	const auto peer = item->history()->peer;
-	if ((!peer->isAyuNoForwards() && !AyuForward::isAyuForwardNeeded(item))
+	if ((!peer->isStaroNoForwards() && !StaroForward::isStaroForwardNeeded(item))
 		|| item->isSponsored()) {
 		return;
 	}

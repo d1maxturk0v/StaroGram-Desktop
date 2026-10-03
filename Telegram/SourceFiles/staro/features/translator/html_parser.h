@@ -10,7 +10,7 @@
 
 #include <QtCore/QString>
 
-namespace Ayu::Translator::Html {
+namespace Staro::Translator::Html {
 
 [[nodiscard]] QString entitiesToHtml(const TextWithEntities &text);
 [[nodiscard]] TextWithEntities htmlToEntities(const QString &text);

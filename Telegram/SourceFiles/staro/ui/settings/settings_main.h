@@ -16,9 +16,9 @@ class SessionController;
 
 namespace Settings {
 
-class AyuMain : public Section<AyuMain> {
+class StaroMain : public Section<StaroMain> {
 public:
-	AyuMain(QWidget *parent, not_null<Window::SessionController*> controller);
+	StaroMain(QWidget *parent, not_null<Window::SessionController*> controller);
 
 	[[nodiscard]] rpl::producer<QString> title() override;
 
@@ -26,6 +26,6 @@ private:
 	void setupContent();
 };
 
-[[nodiscard]] Type AyuMainId();
+[[nodiscard]] Type StaroMainId();
 
 } // namespace Settings

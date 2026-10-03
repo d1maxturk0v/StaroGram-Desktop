@@ -539,7 +539,7 @@ void GifsListWidget::selectInlineResult(
 					});
 				});
 
-			const auto &settings = AyuSettings::getInstance();
+			const auto &settings = StaroSettings::getInstance();
 			if (settings.gifConfirmation() && !needsCaption) {
 				_show->showBox(Ui::MakeConfirmBox({
 					.text = tr::ayu_ConfirmationGIF(),

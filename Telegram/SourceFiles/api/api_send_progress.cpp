@@ -118,7 +118,7 @@ void SendProgressManager::send(const Key &key, int progress) {
 	}
 
 	// AyuGram sendUploadProgress
-	const auto &ghost = AyuSettings::ghost(_session);
+	const auto &ghost = StaroSettings::ghost(_session);
 	if (!ghost.sendUploadProgress())
 	{
 		DEBUG_LOG(("[StaroGram] Don't send upload progress"));

@@ -8,7 +8,7 @@
 
 #define ICON(name, value) const auto name##_ICON = QStringLiteral(value)
 
-namespace AyuAssets {
+namespace StaroAssets {
 
 ICON(DEFAULT, "default");
 ICON(ALT, "alt");

@@ -37,7 +37,7 @@
 namespace Settings {
 
 using namespace Builder;
-using namespace AyuBuilder;
+using namespace StaroBuilder;
 
 namespace {
 
@@ -175,7 +175,7 @@ void BuildDonations(SectionBuilder &builder) {
 	});
 }
 
-void BuildCrashReporting(SectionBuilder &builder, AyuSectionBuilder &ayu) {
+void BuildCrashReporting(SectionBuilder &builder, StaroSectionBuilder &ayu) {
 #ifndef TDESKTOP_DISABLE_AUTOUPDATE
 	builder.addSkip();
 	builder.addSubsectionTitle(tr::ayu_CategoryOther());
@@ -184,8 +184,8 @@ void BuildCrashReporting(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 		.id = u"ayu/crashReporting"_q,
 		.altIds = { u"ayu/crashlytics"_q },
 		.title = tr::ayu_CrashReporting(),
-		.getter = &AyuSettings::crashReporting,
-		.setter = &AyuSettings::setCrashReporting,
+		.getter = &StaroSettings::crashReporting,
+		.setter = &StaroSettings::setCrashReporting,
 		.icon = { &st::menuIconReport },
 	});
 	builder.addSkip();
@@ -214,7 +214,7 @@ void BuildOtherThings(SectionBuilder &builder) {
 			controller->show(Ui::MakeConfirmBox({
 				.text = tr::ayu_ResetSettingsConfirmation(tr::rich),
 				.confirmed = [=](Fn<void()> &&close) {
-					AyuSettings::reset();
+					StaroSettings::reset();
 					controller->showToast(tr::lng_box_done(tr::now));
 					close();
 				},
@@ -226,12 +226,12 @@ void BuildOtherThings(SectionBuilder &builder) {
 }
 
 const auto kMeta = BuildHelper({
-	.id = AyuOther::Id(),
-	.parentId = AyuMain::Id(),
+	.id = StaroOther::Id(),
+	.parentId = StaroMain::Id(),
 	.title = &tr::ayu_CategoryOther,
 	.icon = &st::menuIconFave,
 }, [](SectionBuilder &builder) {
-	auto ayu = AyuSectionBuilder(builder);
+	auto ayu = StaroSectionBuilder(builder);
 
 	builder.addSkip();
 	BuildDonations(builder);
@@ -241,25 +241,25 @@ const auto kMeta = BuildHelper({
 
 } // namespace
 
-rpl::producer<QString> AyuOther::title() {
+rpl::producer<QString> StaroOther::title() {
 	return tr::ayu_CategoryOther();
 }
 
-AyuOther::AyuOther(
+StaroOther::StaroOther(
 	QWidget *parent,
 	not_null<Window::SessionController*> controller)
 : Section(parent, controller) {
 	setupContent();
 }
 
-void AyuOther::setupContent() {
+void StaroOther::setupContent() {
 	const auto content = Ui::CreateChild<Ui::VerticalLayout>(this);
 	build(content, kMeta.build);
 	Ui::ResizeFitChild(this, content);
 }
 
-Type AyuOtherId() {
-	return AyuOther::Id();
+Type StaroOtherId() {
+	return StaroOther::Id();
 }
 
 } // namespace Settings

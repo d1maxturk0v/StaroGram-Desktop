@@ -70,7 +70,7 @@ Main::Session &PerDialogFiltersListController::session() const {
 }
 
 void PerDialogFiltersListController::prepareShadowBan() {
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 	const auto &shadowBanned = settings.shadowBanIds();
 
 	for (const auto id : shadowBanned) {
@@ -83,8 +83,8 @@ void PerDialogFiltersListController::prepare() {
 		prepareShadowBan();
 		return;
 	}
-	const auto filters = AyuDatabase::getAllRegexFilters();
-	const auto exclusions = AyuDatabase::getAllFiltersExclusions();
+	const auto filters = StaroDatabase::getAllRegexFilters();
+	const auto exclusions = StaroDatabase::getAllFiltersExclusions();
 
 	if (filters.empty() && exclusions.empty()) {
 		return;
@@ -142,10 +142,10 @@ void PerDialogFiltersListController::rowClicked(not_null<PeerListRow*> peer) {
 			tr::lng_theme_delete(tr::now),
 			[=]
 			{
-				if (AyuSettings::getInstance().isShadowBanned(did)) {
-					AyuSettings::getInstance().removeShadowBan(did);
+				if (StaroSettings::getInstance().isShadowBanned(did)) {
+					StaroSettings::getInstance().removeShadowBan(did);
 				} else {
-					AyuSettings::getInstance().addShadowBan(did);
+					StaroSettings::getInstance().addShadowBan(did);
 				}
 			},
 			&st::menuIconDelete);
@@ -155,7 +155,7 @@ void PerDialogFiltersListController::rowClicked(not_null<PeerListRow*> peer) {
 	}
 	_controller->dialogId = did;
 	_controller->showExclude = true;
-	_controller->showSettings(AyuFiltersList::Id());
+	_controller->showSettings(StaroFiltersList::Id());
 }
 
 }

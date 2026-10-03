@@ -17,7 +17,7 @@ public:
 	int version;
 };
 
-namespace AyuDatabase {
+namespace StaroDatabase {
 
 void initialize();
 

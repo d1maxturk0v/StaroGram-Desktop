@@ -26,7 +26,7 @@ class SessionController;
 
 } // namespace Window
 
-namespace AyuUi {
+namespace StaroUi {
 
 class FontSelectorBox : public Ui::BoxContent
 {

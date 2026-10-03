@@ -21,10 +21,10 @@ class SessionController;
 
 namespace Settings {
 
-class AyuFiltersList : public Section<AyuFiltersList>
+class StaroFiltersList : public Section<StaroFiltersList>
 {
 public:
-	AyuFiltersList(QWidget *parent, not_null<Window::SessionController*> controller);
+	StaroFiltersList(QWidget *parent, not_null<Window::SessionController*> controller);
 
 	[[nodiscard]] rpl::producer<QString> title() override;
 

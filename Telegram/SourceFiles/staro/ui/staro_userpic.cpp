@@ -15,7 +15,7 @@
 
 #include <QRectF>
 
-namespace AyuUserpic {
+namespace StaroUserpic {
 
 bool ShouldOverrideShape(Ui::PeerUserpicShape shape) {
 	using Shape = Ui::PeerUserpicShape;
@@ -25,7 +25,7 @@ bool ShouldOverrideShape(Ui::PeerUserpicShape shape) {
 		return true;
 	case Shape::Monoforum:
 	case Shape::Forum:
-		return AyuSettings::getInstance().singleCornerRadius();
+		return StaroSettings::getInstance().singleCornerRadius();
 	}
 	return false;
 }
@@ -50,7 +50,7 @@ bool IsCircle() {
 
 uint8 PackedState() {
 	return uint8(AyuUiSettings::getAvatarCorners() & 0x1F)
-		| (AyuSettings::getInstance().singleCornerRadius() ? 0x20 : 0);
+		| (StaroSettings::getInstance().singleCornerRadius() ? 0x20 : 0);
 }
 
 void PaintShape(QPainter &p, int x, int y, int size) {

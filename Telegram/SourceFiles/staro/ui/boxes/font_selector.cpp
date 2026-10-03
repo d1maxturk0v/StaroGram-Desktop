@@ -45,7 +45,7 @@ struct Font
 	QString id;
 };
 
-namespace AyuUi {
+namespace StaroUi {
 
 class Rows : public Ui::RpWidget
 {
@@ -846,11 +846,11 @@ Ui::ScrollToRequest Content::jump(int rows) {
 
 } // namespace
 
-AyuUi::FontSelectorBox::FontSelectorBox(QWidget *, Window::SessionController *controller, Fn<void(QString font)> hook)
+StaroUi::FontSelectorBox::FontSelectorBox(QWidget *, Window::SessionController *controller, Fn<void(QString font)> hook)
 	: _controller(controller), _hook(hook) {
 }
 
-void AyuUi::FontSelectorBox::prepare() {
+void StaroUi::FontSelectorBox::prepare() {
 	addButton(tr::lng_box_ok(),
 			  [=]
 			  {
@@ -900,9 +900,9 @@ void AyuUi::FontSelectorBox::prepare() {
 
 	using namespace rpl::mappers;
 
-	const auto fonts = AyuUi::PrepareFonts();
+	const auto fonts = StaroUi::PrepareFonts();
 	const auto inner = setInnerWidget(
-		object_ptr<AyuUi::Content>(this, fonts),
+		object_ptr<StaroUi::Content>(this, fonts),
 		st::boxScroll,
 		topContainer->height());
 	inner->resizeToWidth(st::boxWidth);
@@ -958,13 +958,13 @@ void AyuUi::FontSelectorBox::prepare() {
 	};
 }
 
-void AyuUi::FontSelectorBox::setupTop(not_null<Ui::VerticalLayout*> container) {
+void StaroUi::FontSelectorBox::setupTop(not_null<Ui::VerticalLayout*> container) {
 	if (!_controller) {
 		return;
 	}
 }
 
-void AyuUi::FontSelectorBox::keyPressEvent(QKeyEvent *e) {
+void StaroUi::FontSelectorBox::keyPressEvent(QKeyEvent *e) {
 	const auto key = e->key();
 	if (key == Qt::Key_Escape) {
 		closeBox();
@@ -988,16 +988,16 @@ void AyuUi::FontSelectorBox::keyPressEvent(QKeyEvent *e) {
 	}
 }
 
-int AyuUi::FontSelectorBox::rowsInPage() const {
-	return std::max(height() / AyuUi::Rows::DefaultRowHeight(), 1);
+int StaroUi::FontSelectorBox::rowsInPage() const {
+	return std::max(height() / StaroUi::Rows::DefaultRowHeight(), 1);
 }
 
-void AyuUi::FontSelectorBox::setInnerFocus() {
+void StaroUi::FontSelectorBox::setInnerFocus() {
 	_setInnerFocus();
 }
 
 base::binary_guard
-AyuUi::FontSelectorBox::Show(Window::SessionController *controller, const Fn<void(QString font)> hook) {
+StaroUi::FontSelectorBox::Show(Window::SessionController *controller, const Fn<void(QString font)> hook) {
 	auto result = base::binary_guard();
 
 	Ui::show(Box<FontSelectorBox>(controller, hook));

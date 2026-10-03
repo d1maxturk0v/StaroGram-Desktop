@@ -144,7 +144,7 @@ auto storage = make_storage(
 	)
 );
 
-namespace AyuMigrations {
+namespace StaroMigrations {
 
 void migrateToV1(decltype(storage) &storage) {
 	// drop RegexFilter table as we've added primary_key()
@@ -162,7 +162,7 @@ void runMigrations(decltype(storage) &storage) {
 	constexpr int kLatestVersion = 1;
 
 	const std::map<int, Fn<void(decltype(storage) &)>> migrations = {
-		{1, AyuMigrations::migrateToV1},
+		{1, StaroMigrations::migrateToV1},
 	};
 
 	int currentVersion = 0;
@@ -198,7 +198,7 @@ void runMigrations(decltype(storage) &storage) {
 			} catch (...) {
 				storage.rollback();
 				LOG(("Failed to apply migration for version: %1.").arg(v));
-				AyuDatabase::moveCurrentDatabase();
+				StaroDatabase::moveCurrentDatabase();
 
 				return;
 			}
@@ -206,7 +206,7 @@ void runMigrations(decltype(storage) &storage) {
 	}
 }
 
-namespace AyuDatabase {
+namespace StaroDatabase {
 
 void moveCurrentDatabase() {
 	const auto time = base::unixtime::now();

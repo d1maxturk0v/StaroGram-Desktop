@@ -12,7 +12,7 @@
 
 namespace Media::Streaming { struct FrameRequest; }
 
-namespace AyuUserpic {
+namespace StaroUserpic {
 
 [[nodiscard]] bool ShouldOverrideShape(Ui::PeerUserpicShape shape);
 [[nodiscard]] int ComputeRadius(int pixelSize);

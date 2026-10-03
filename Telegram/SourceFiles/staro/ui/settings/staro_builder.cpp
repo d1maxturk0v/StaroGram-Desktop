@@ -19,7 +19,7 @@
 #include "ui/wrap/vertical_layout.h"
 #include "window/window_session_controller.h"
 
-namespace Settings::AyuBuilder {
+namespace Settings::StaroBuilder {
 namespace {
 
 [[nodiscard]] QString ResolveTitle(rpl::producer<QString> title) {
@@ -35,21 +35,21 @@ namespace {
 
 } // namespace
 
-AyuSectionBuilder::AyuSectionBuilder(Builder::SectionBuilder &builder)
+StaroSectionBuilder::StaroSectionBuilder(Builder::SectionBuilder &builder)
 : _builder(builder) {
 }
 
-Builder::SectionBuilder &AyuSectionBuilder::base() {
+Builder::SectionBuilder &StaroSectionBuilder::base() {
 	return _builder;
 }
 
-Ui::SettingsButton *AyuSectionBuilder::addSettingToggle(
+Ui::SettingsButton *StaroSectionBuilder::addSettingToggle(
 		SettingToggleArgs &&args) {
 	auto getter = [g = args.getter] {
-		return (AyuSettings::getInstance().*g)();
+		return (StaroSettings::getInstance().*g)();
 	};
 	auto setter = [s = args.setter](bool v) {
-		(AyuSettings::getInstance().*s)(v);
+		(StaroSettings::getInstance().*s)(v);
 	};
 	return addToggle({
 		.id = std::move(args.id),
@@ -63,7 +63,7 @@ Ui::SettingsButton *AyuSectionBuilder::addSettingToggle(
 	});
 }
 
-Ui::SettingsButton *AyuSectionBuilder::addToggle(ToggleArgs &&args) {
+Ui::SettingsButton *StaroSectionBuilder::addToggle(ToggleArgs &&args) {
 	auto getter = std::move(args.getter);
 	auto setter = std::move(args.setter);
 	const auto initialValue = getter();
@@ -93,7 +93,7 @@ Ui::SettingsButton *AyuSectionBuilder::addToggle(ToggleArgs &&args) {
 	return button;
 }
 
-Fn<void()> AyuSectionBuilder::addCollapsibleToggle(
+Fn<void()> StaroSectionBuilder::addCollapsibleToggle(
 		CollapsibleToggleArgs &&args) {
 	auto resolvedTitle = ResolveTitle(rpl::duplicate(args.title));
 	auto checkboxes = std::move(args.checkboxes);
@@ -145,7 +145,7 @@ Fn<void()> AyuSectionBuilder::addCollapsibleToggle(
 	return result;
 }
 
-void AyuSectionBuilder::addChooseButton(ChooseButtonArgs &&args) {
+void StaroSectionBuilder::addChooseButton(ChooseButtonArgs &&args) {
 	auto options = std::move(args.options);
 	auto setter = std::move(args.setter);
 	auto initialSelection = args.initialSelection;
@@ -187,7 +187,7 @@ void AyuSectionBuilder::addChooseButton(ChooseButtonArgs &&args) {
 	});
 }
 
-void AyuSectionBuilder::addSlider(SliderArgs &&args) {
+void StaroSectionBuilder::addSlider(SliderArgs &&args) {
 	auto id = std::move(args.id);
 	auto altIds = std::move(args.altIds);
 	auto keywords = std::move(args.keywords);
@@ -271,11 +271,11 @@ void AyuSectionBuilder::addSlider(SliderArgs &&args) {
 	});
 }
 
-void AyuSectionBuilder::addBetaBadge(not_null<Ui::SettingsButton*> button) {
+void StaroSectionBuilder::addBetaBadge(not_null<Ui::SettingsButton*> button) {
 	AddBetaBadge(button);
 }
 
-void AyuSectionBuilder::addSectionDivider() {
+void StaroSectionBuilder::addSectionDivider() {
 	_builder.addSkip();
 	_builder.addDivider();
 	_builder.addSkip();

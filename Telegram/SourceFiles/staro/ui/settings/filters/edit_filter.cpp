@@ -209,7 +209,7 @@ void RegexEditBuilder(
 
 		crl::async([=]
 		{
-			AyuDatabase::addRegexFilter(newFilter);
+			StaroDatabase::addRegexFilter(newFilter);
 			FiltersCacheController::rebuildCache();
 
 			crl::on_main([=]
@@ -227,13 +227,13 @@ void RegexEditBuilder(
 						.adaptive = true,
 					};
 					if (dialogId.has_value()) {
-						Ayu::Ui::ShowToastWithAction(
+						Staro::Ui::ShowToastWithAction(
 							std::move(config),
 							tr::ayu_RegexFilterBulletinAction(tr::now),
 							[=]() mutable {
 								newFilter.dialogId = dialogId;
 
-								AyuDatabase::updateRegexFilter(newFilter);
+								StaroDatabase::updateRegexFilter(newFilter);
 								FiltersCacheController::rebuildCache();
 								FiltersCacheController::fireUpdate();
 							});

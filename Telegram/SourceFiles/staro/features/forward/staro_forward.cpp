@@ -27,7 +27,7 @@
 #include "ui/chat/attach/attach_prepare.h"
 #include "ui/text/text_utilities.h"
 
-namespace AyuForward {
+namespace StaroForward {
 
 std::unordered_map<PeerId, std::shared_ptr<ForwardState>> forwardStates;
 
@@ -110,7 +110,7 @@ static Ui::PreparedList prepareMedia(not_null<Main::Session*> session,
 									 const std::vector<not_null<HistoryItem*>> &items,
 									 int &i,
 									 std::vector<not_null<Data::Media*>> &groupMedia,
-									 const AyuSync::DocumentPaths &documentPaths) {
+									 const StaroSync::DocumentPaths &documentPaths) {
 	auto list = Ui::PreparedList();
 	const auto append = [&](not_null<Data::Media*> media)
 	{
@@ -122,14 +122,14 @@ static Ui::PreparedList prepareMedia(not_null<Main::Session*> session,
 				path = j->second;
 			}
 		} else if (const auto photo = media->photo()) {
-			path = AyuSync::filePath(session, photo);
+			path = StaroSync::filePath(session, photo);
 		}
 		auto prepared = Ui::PreparedFile(path);
 		if (prepared.path.isEmpty()) {
 			return;
 		}
 		if (document) {
-			prepared.displayName = AyuSync::documentFileName(document);
+			prepared.displayName = StaroSync::documentFileName(document);
 		}
 		Storage::PrepareDetails(prepared, st::sendMediaPreviewSize, PhotoSideLimit());
 		groupMedia.emplace_back(media);
@@ -166,7 +166,7 @@ void sendMedia(
 	Api::MessageToSend &&message,
 	bool sendImagesAsPhotos) {
 	if (const auto document = primaryMedia->document(); document && document->sticker()) {
-		AyuSync::sendStickerSync(session, std::move(message), document);
+		StaroSync::sendStickerSync(session, std::move(message), document);
 		return;
 	}
 
@@ -200,7 +200,7 @@ void sendMedia(
 
 		if (!failed && data.size()) {
 			file.close();
-			AyuSync::sendVoiceSync(session,
+			StaroSync::sendVoiceSync(session,
 								   data,
 								   primaryMedia->document()->duration(),
 								   mediaType == SendMediaType::Round,
@@ -216,7 +216,7 @@ void sendMedia(
 	}
 
 	for (auto &group : bundle->groups) {
-		AyuSync::sendDocumentSync(
+		StaroSync::sendDocumentSync(
 			session,
 			group,
 			mediaType,
@@ -225,28 +225,28 @@ void sendMedia(
 	}
 }
 
-bool isAyuForwardNeeded(const std::vector<not_null<HistoryItem*>> &items) {
-	const auto needAyuForward = [&](const auto &item)
+bool isStaroForwardNeeded(const std::vector<not_null<HistoryItem*>> &items) {
+	const auto needStaroForward = [&](const auto &item)
 	{
-		return isAyuForwardNeeded(item);
+		return isStaroForwardNeeded(item);
 	};
-	return std::ranges::any_of(items, needAyuForward);
+	return std::ranges::any_of(items, needStaroForward);
 }
 
-bool isAyuForwardNeeded(not_null<HistoryItem*> item) {
-	if (item->isDeleted() || item->isAyuNoForwards() || item->unsupportedTTL() || (item->media() && item->media()->ttlSeconds())) {
+bool isStaroForwardNeeded(not_null<HistoryItem*> item) {
+	if (item->isDeleted() || item->isStaroNoForwards() || item->unsupportedTTL() || (item->media() && item->media()->ttlSeconds())) {
 		return true;
 	}
 	return false;
 }
 
-bool isFullAyuForwardNeeded(not_null<HistoryItem*> item) {
-	return item->from()->isAyuNoForwards() || item->history()->peer->isAyuNoForwards();
+bool isFullStaroForwardNeeded(not_null<HistoryItem*> item) {
+	return item->from()->isStaroNoForwards() || item->history()->peer->isStaroNoForwards();
 }
 
 struct ForwardChunk
 {
-	bool isAyuForwardNeeded;
+	bool isStaroForwardNeeded;
 	std::vector<not_null<HistoryItem*>> items;
 };
 
@@ -272,19 +272,19 @@ void intelligentForward(
 	auto currentArray = std::vector<not_null<HistoryItem*>>();
 
 	auto currentChunk = ForwardChunk({
-		.isAyuForwardNeeded = isAyuForwardNeeded(items[0]),
+		.isStaroForwardNeeded = isStaroForwardNeeded(items[0]),
 		.items = currentArray
 	});
 
 	for (const auto &item : items) {
-		if (isAyuForwardNeeded(item) != currentChunk.isAyuForwardNeeded) {
+		if (isStaroForwardNeeded(item) != currentChunk.isStaroForwardNeeded) {
 			currentChunk.items = currentArray;
 			chunks.push_back(currentChunk);
 
 			currentArray = std::vector<not_null<HistoryItem*>>();
 
 			currentChunk = ForwardChunk({
-				.isAyuForwardNeeded = isAyuForwardNeeded(item),
+				.isStaroForwardNeeded = isStaroForwardNeeded(item),
 				.items = currentArray
 			});
 		}
@@ -299,14 +299,14 @@ void intelligentForward(
 
 
 	for (const auto &chunk : chunks) {
-		if (chunk.isAyuForwardNeeded) {
+		if (chunk.isStaroForwardNeeded) {
 			forwardMessages(session, action, true, Data::ResolvedForwardDraft(chunk.items));
 		} else {
 			state->totalMessages = chunk.items.size();
 			state->sentMessages = 0;
 			state->updateBottomBar(*session, &peer->id, ForwardState::State::Sending);
 
-			AyuSync::forwardMessagesSync(session, chunk.items, action, draft.options);
+			StaroSync::forwardMessagesSync(session, chunk.items, action, draft.options);
 
 			state->sentMessages = state->totalMessages;
 
@@ -362,11 +362,11 @@ void forwardMessages(
 		}
 	}
 	state->totalMessages = items.size();
-	auto documentPaths = AyuSync::DocumentPaths();
+	auto documentPaths = StaroSync::DocumentPaths();
 	if (!toBeDownloaded.empty()) {
 		state->state = ForwardState::State::Downloading;
 		state->updateBottomBar(*session, &peer->id, ForwardState::State::Downloading);
-		documentPaths = AyuSync::loadDocuments(
+		documentPaths = StaroSync::loadDocuments(
 			session,
 			toBeDownloaded,
 			[state] { return state->stopRequested.load(); });
@@ -434,10 +434,10 @@ void forwardMessages(
 		}
 
 		if (!mediaDownloadable(item->media())) {
-			AyuSync::sendMessageSync(session, std::move(message));
+			StaroSync::sendMessageSync(session, std::move(message));
 		} else if (const auto media = item->media()) {
 			if (media->poll()) {
-				AyuSync::sendMessageSync(session, std::move(message));
+				StaroSync::sendMessageSync(session, std::move(message));
 				continue;
 			}
 
@@ -472,7 +472,7 @@ void forwardMessages(
 
 			if (preparedMedia.files.empty()) {
 				if (!message.textWithTags.empty()) {
-					AyuSync::sendMessageSync(session, std::move(message));
+					StaroSync::sendMessageSync(session, std::move(message));
 				}
 				continue;
 			}

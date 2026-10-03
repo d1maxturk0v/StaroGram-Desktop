@@ -23,7 +23,7 @@
 
 #include <QDesktopServices>
 
-namespace AyuUrlHandlers {
+namespace StaroUrlHandlers {
 
 bool ResolveUser(
 	Window::SessionController *controller,
@@ -101,7 +101,7 @@ bool ResolveChat(
 	return true;
 }
 
-bool HandleAyu(
+bool HandleStaro(
 	Window::SessionController *controller,
 	const Match &match,
 	const QVariant &context) {
@@ -114,7 +114,7 @@ bool HandleAyu(
 		const auto type = [&]() -> std::optional<::Settings::Type>
 		{
 			if (section == u"settings"_q || section == u"preferences"_q || section == u"prefs"_q) {
-				return ::Settings::AyuMain::Id();
+				return ::Settings::StaroMain::Id();
 			}
 			return std::nullopt;
 		}();
@@ -147,7 +147,7 @@ bool HandleSupport(
 
 struct ResolvedSetting {
 	QString controlId;
-	::Settings::Type section = ::Settings::AyuMain::Id();
+	::Settings::Type section = ::Settings::StaroMain::Id();
 };
 
 [[nodiscard]] ResolvedSetting ResolveSetting(
@@ -175,7 +175,7 @@ struct ResolvedSetting {
 	return { .controlId = controlId };
 }
 
-bool HandleAyuSettings(
+bool HandleStaroSettings(
 	Window::SessionController *controller,
 	const Match &match,
 	const QVariant &context) {
@@ -189,7 +189,7 @@ bool HandleAyuSettings(
 	const auto settingName = params.value(u"s"_q);
 
 	if (settingName.isEmpty()) {
-		controller->showSettings(::Settings::AyuMain::Id());
+		controller->showSettings(::Settings::StaroMain::Id());
 	} else {
 		const auto resolved = ResolveSetting(
 			u"ayu/"_q + settingName,

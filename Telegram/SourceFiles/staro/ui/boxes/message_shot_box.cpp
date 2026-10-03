@@ -34,7 +34,7 @@
 
 MessageShotBox::MessageShotBox(
 	QWidget *parent,
-	AyuFeatures::MessageShot::ShotConfig config)
+	StaroFeatures::MessageShot::ShotConfig config)
 	: _config(std::move(config)) {
 }
 
@@ -43,29 +43,29 @@ void MessageShotBox::prepare() {
 }
 
 void MessageShotBox::setupContent() {
-	_selectedPalette = AyuFeatures::MessageShot::getPersistedPalette();
+	_selectedPalette = StaroFeatures::MessageShot::getPersistedPalette();
 	if (!_selectedPalette) {
 		_selectedPalette = std::make_shared<style::palette>();
 	}
-	AyuFeatures::MessageShot::setPersistedPalette(_selectedPalette);
+	StaroFeatures::MessageShot::setPersistedPalette(_selectedPalette);
 
-	AyuFeatures::MessageShot::ensureChatThemesRefreshed();
+	StaroFeatures::MessageShot::ensureChatThemesRefreshed();
 
-	auto &settings = AyuSettings::getInstance();
+	auto &settings = StaroSettings::getInstance();
 	auto &shotSettings = settings.messageShotSettings();
 	const auto savedSimpleQuotesAndReplies = settings.simpleQuotesAndReplies();
 	settings.setSimpleQuotesAndReplies(!shotSettings.showColorfulReplies());
 
 	using namespace Settings;
 
-	auto savedThemeApplyResult = AyuFeatures::MessageShot::SavedThemeApplyResult::Failed;
+	auto savedThemeApplyResult = StaroFeatures::MessageShot::SavedThemeApplyResult::Failed;
 	const auto hasSavedTheme = shotSettings.embeddedThemeType() != -1
 		|| shotSettings.cloudThemeId() != 0;
 	if (hasSavedTheme) {
-		savedThemeApplyResult = AyuFeatures::MessageShot::applySavedThemePalette(
+		savedThemeApplyResult = StaroFeatures::MessageShot::applySavedThemePalette(
 			_selectedPalette,
 			nullptr);
-		if (savedThemeApplyResult != AyuFeatures::MessageShot::SavedThemeApplyResult::Failed) {
+		if (savedThemeApplyResult != StaroFeatures::MessageShot::SavedThemeApplyResult::Failed) {
 			_config.st = std::make_shared<Ui::ChatStyle>(_selectedPalette.get());
 		} else {
 			shotSettings.clearTheme();
@@ -73,7 +73,7 @@ void MessageShotBox::setupContent() {
 		}
 	}
 
-	AyuFeatures::MessageShot::setShotConfig(_config);
+	StaroFeatures::MessageShot::setShotConfig(_config);
 
 	setTitle(rpl::single(tr::ayu_MessageShotTopBarText(tr::now)));
 
@@ -210,7 +210,7 @@ void MessageShotBox::setupContent() {
 	const auto updatePreview = [=]
 	{
 		const auto currentGeneration = ++(*generation);
-		AyuFeatures::MessageShot::Make(this, _config, [=](const QImage &image, bool final)
+		StaroFeatures::MessageShot::Make(this, _config, [=](const QImage &image, bool final)
 		{
 			if (!weak || currentGeneration != *generation) {
 				return;
@@ -223,9 +223,9 @@ void MessageShotBox::setupContent() {
 		});
 	};
 
-	if (savedThemeApplyResult == AyuFeatures::MessageShot::SavedThemeApplyResult::AwaitingAsync) {
+	if (savedThemeApplyResult == StaroFeatures::MessageShot::SavedThemeApplyResult::AwaitingAsync) {
 		const auto weakBox = base::make_weak(this);
-		AyuFeatures::MessageShot::subscribeToCloudThemeLoad(
+		StaroFeatures::MessageShot::subscribeToCloudThemeLoad(
 			_config.controller,
 			_selectedPalette,
 			[=] {
@@ -239,7 +239,7 @@ void MessageShotBox::setupContent() {
 
 	auto selectedTheme =
 		content->lifetime().make_state<rpl::variable<QString>>(
-			AyuFeatures::MessageShot::resolveThemeName());
+			StaroFeatures::MessageShot::resolveThemeName());
 
 	AddButtonWithLabel(
 		content,
@@ -249,7 +249,7 @@ void MessageShotBox::setupContent() {
 	)->addClickHandler(
 		[=]
 		{
-			AyuFeatures::MessageShot::setChoosingTheme(true);
+			StaroFeatures::MessageShot::setChoosingTheme(true);
 
 			auto box = Box<ThemeSelectorBox>(_config.controller);
 			box->paletteSelected() | rpl::on_next(
@@ -260,14 +260,14 @@ void MessageShotBox::setupContent() {
 
 					_config.st = std::make_shared<Ui::ChatStyle>(_selectedPalette.get());
 
-					auto &shot = AyuSettings::getInstance().messageShotSettings();
-					const auto embedded = AyuFeatures::MessageShot::getSelectedFromDefault();
-					const auto cloud = AyuFeatures::MessageShot::getSelectedFromCustom();
+					auto &shot = StaroSettings::getInstance().messageShotSettings();
+					const auto embedded = StaroFeatures::MessageShot::getSelectedFromDefault();
+					const auto cloud = StaroFeatures::MessageShot::getSelectedFromCustom();
 					if (cloud.has_value()) {
 						const auto accountId = _config.controller->session().userId().bare;
 						shot.setCloudTheme(accountId, cloud->id, cloud->accessHash, cloud->documentId, cloud->title);
 					} else if (embedded != Window::Theme::EmbeddedType(-1)) {
-						const auto color = AyuFeatures::MessageShot::getSelectedColorFromDefault();
+						const auto color = StaroFeatures::MessageShot::getSelectedColorFromDefault();
 						shot.setEmbeddedTheme(static_cast<int>(embedded), color ? color->rgb() : 0);
 					} else {
 						shot.clearTheme();
@@ -287,7 +287,7 @@ void MessageShotBox::setupContent() {
 			box->boxClosing() | rpl::on_next(
 				[=]
 				{
-					AyuFeatures::MessageShot::setChoosingTheme(false);
+					StaroFeatures::MessageShot::setChoosingTheme(false);
 				},
 				content->lifetime());
 
@@ -302,7 +302,7 @@ void MessageShotBox::setupContent() {
 	) | rpl::skip(1) | on_next(
 		[=](bool enabled)
 		{
-			AyuSettings::getInstance().messageShotSettings().setShowBackground(enabled);
+			StaroSettings::getInstance().messageShotSettings().setShowBackground(enabled);
 			updatePreview();
 		},
 		content->lifetime());
@@ -317,7 +317,7 @@ void MessageShotBox::setupContent() {
 	) | rpl::skip(1) | on_next(
 		[=](bool enabled)
 		{
-			AyuSettings::getInstance().messageShotSettings().setShowDate(enabled);
+			StaroSettings::getInstance().messageShotSettings().setShowDate(enabled);
 			updatePreview();
 		},
 		content->lifetime());
@@ -333,7 +333,7 @@ void MessageShotBox::setupContent() {
 		) | rpl::skip(1) | on_next(
 			[=](bool enabled)
 			{
-				AyuSettings::getInstance().messageShotSettings().setShowReactions(enabled);
+				StaroSettings::getInstance().messageShotSettings().setShowReactions(enabled);
 				updatePreview();
 			},
 			content->lifetime());
@@ -350,7 +350,7 @@ void MessageShotBox::setupContent() {
 		) | rpl::skip(1) | on_next(
 			[=](bool enabled)
 			{
-				AyuSettings::getInstance().messageShotSettings().setShowHeaderDecorations(enabled);
+				StaroSettings::getInstance().messageShotSettings().setShowHeaderDecorations(enabled);
 				updatePreview();
 			},
 			content->lifetime());
@@ -367,7 +367,7 @@ void MessageShotBox::setupContent() {
 		) | rpl::skip(1) | on_next(
 			[=](bool enabled)
 			{
-				auto &currentSettings = AyuSettings::getInstance();
+				auto &currentSettings = StaroSettings::getInstance();
 				currentSettings.messageShotSettings().setShowColorfulReplies(enabled);
 				currentSettings.setSimpleQuotesAndReplies(!enabled);
 
@@ -388,7 +388,7 @@ void MessageShotBox::setupContent() {
 		) | rpl::skip(1) | on_next(
 			[=](bool enabled)
 			{
-				AyuSettings::getInstance().messageShotSettings().setRevealSpoilers(enabled);
+				StaroSettings::getInstance().messageShotSettings().setRevealSpoilers(enabled);
 				updatePreview();
 			},
 			content->lifetime());
@@ -430,11 +430,11 @@ void MessageShotBox::setupContent() {
 	boxClosing() | rpl::on_next(
 		[=]
 		{
-			AyuFeatures::MessageShot::resetCustomSelected();
-			AyuFeatures::MessageShot::resetDefaultSelected();
-			AyuFeatures::MessageShot::resetShotConfig();
+			StaroFeatures::MessageShot::resetCustomSelected();
+			StaroFeatures::MessageShot::resetDefaultSelected();
+			StaroFeatures::MessageShot::resetShotConfig();
 
-			AyuSettings::getInstance().setSimpleQuotesAndReplies(savedSimpleQuotesAndReplies);
+			StaroSettings::getInstance().setSimpleQuotesAndReplies(savedSimpleQuotesAndReplies);
 		},
 		content->lifetime());
 

@@ -93,12 +93,12 @@ std::optional<bool> isFiltered(
 }
 
 bool isEnabled(not_null<PeerData*> peer) {
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 	return settings.filtersEnabled() && (settings.filtersEnabledInChats() || peer->isBroadcast());
 }
 
 bool isBlocked(const not_null<HistoryItem*> item) {
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 
 	auto shadowBanMatched = false;
 	const auto blocked = [&]() -> bool
@@ -141,7 +141,7 @@ bool isBlocked(const not_null<HistoryItem*> item) {
 }
 
 bool isBlocked(const not_null<PeerData*> peer) {
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 	return settings.filtersEnabled() &&
 	(
 		(peer->isUser() && peer->asUser()->isBlocked() && settings.hideFromBlocked()) ||
@@ -154,7 +154,7 @@ bool filtered(const not_null<HistoryItem*> item) {
 		return false;
 	}
 
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 	if (!settings.filtersEnabled()) {
 		return false;
 	}
@@ -209,7 +209,7 @@ void toggleFilteredMessagesShown(not_null<PeerData*> peer) {
 }
 
 void invalidate(not_null<HistoryItem*> item) {
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 	if (!settings.filtersEnabled()) {
 		return;
 	}

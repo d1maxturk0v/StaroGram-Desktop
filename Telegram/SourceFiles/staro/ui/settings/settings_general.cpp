@@ -29,14 +29,14 @@
 namespace Settings {
 
 using namespace Builder;
-using namespace AyuBuilder;
+using namespace StaroBuilder;
 
 namespace {
 
-void BuildTranslator(SectionBuilder &builder, AyuSectionBuilder &ayu) {
+void BuildTranslator(SectionBuilder &builder, StaroSectionBuilder &ayu) {
 	builder.addSubsectionTitle(tr::lng_translate_settings_subtitle());
 
-	auto *settings = &AyuSettings::getInstance();
+	auto *settings = &StaroSettings::getInstance();
 
 	const auto options = std::vector{
 		std::pair(TranslationProvider::Telegram, QString("Telegram")),
@@ -74,7 +74,7 @@ void BuildTranslator(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 			: 0;
 	};
 
-	auto currentVal = AyuSettings::getInstance().translationProviderValue()
+	auto currentVal = StaroSettings::getInstance().translationProviderValue()
 		| rpl::map(getIndex)
 		| rpl::map([=](int val) { return availableOptions[val].second; });
 
@@ -89,7 +89,7 @@ void BuildTranslator(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 						[=](not_null<Ui::GenericBox*> box) {
 							const auto save = [=](int index) {
 								const auto option = availableOptions[index].first;
-								AyuSettings::getInstance().setTranslationProvider(option);
+								StaroSettings::getInstance().setTranslationProvider(option);
 
 								if constexpr (Platform::IsMac()) {
 									if (option == TranslationProvider::Native) {
@@ -116,7 +116,7 @@ void BuildTranslator(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 }
 
 void BuildShowPeerId(SectionBuilder &builder) {
-	auto *settings = &AyuSettings::getInstance();
+	auto *settings = &StaroSettings::getInstance();
 
 	const auto options = std::vector{
 		QString(tr::ayu_SettingsShowID_Hide(tr::now)),
@@ -124,7 +124,7 @@ void BuildShowPeerId(SectionBuilder &builder) {
 		QString("Bot API")
 	};
 
-	auto currentVal = AyuSettings::getInstance().showPeerIdValue()
+	auto currentVal = StaroSettings::getInstance().showPeerIdValue()
 		| rpl::map([=](PeerIdDisplay val) {
 			return options[static_cast<int>(val)];
 		});
@@ -140,7 +140,7 @@ void BuildShowPeerId(SectionBuilder &builder) {
 			controller->show(Box(
 				[=](not_null<Ui::GenericBox*> box) {
 					const auto save = [=](int index) {
-						AyuSettings::getInstance().setShowPeerId(
+						StaroSettings::getInstance().setShowPeerId(
 							static_cast<PeerIdDisplay>(index));
 					};
 					SingleChoiceBox(box, {
@@ -154,8 +154,8 @@ void BuildShowPeerId(SectionBuilder &builder) {
 	});
 }
 
-void BuildQoLToggles(SectionBuilder &builder, AyuSectionBuilder &ayu) {
-	auto *settings = &AyuSettings::getInstance();
+void BuildQoLToggles(SectionBuilder &builder, StaroSectionBuilder &ayu) {
+	auto *settings = &StaroSettings::getInstance();
 
 	BuildTranslator(builder, ayu);
 	ayu.addSectionDivider();
@@ -169,7 +169,7 @@ void BuildQoLToggles(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 		.title = tr::ayu_DisableStories(),
 		.getter = [=] { return settings->disableStories(); },
 		.setter = [=](bool enabled) {
-			AyuSettings::getInstance().setDisableStories(enabled);
+			StaroSettings::getInstance().setDisableStories(enabled);
 			ShowRestartPrompt(controller);
 		},
 	});
@@ -177,8 +177,8 @@ void BuildQoLToggles(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 	ayu.addSettingToggle({
 		.id = u"ayu/disableOpenLinkWarning"_q,
 		.title = tr::ayu_DisableOpenLinkWarning(),
-		.getter = &AyuSettings::disableOpenLinkWarning,
-		.setter = &AyuSettings::setDisableOpenLinkWarning,
+		.getter = &StaroSettings::disableOpenLinkWarning,
+		.setter = &StaroSettings::setDisableOpenLinkWarning,
 	});
 
 	ayu.addCollapsibleToggle({
@@ -187,13 +187,13 @@ void BuildQoLToggles(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 		.checkboxes = {
 			NestedEntry{
 				tr::ayu_CollapseSimilarChannels(tr::now),
-				[] { return AyuSettings::getInstance().collapseSimilarChannels(); },
-				[](bool v) { AyuSettings::getInstance().setCollapseSimilarChannels(v); }
+				[] { return StaroSettings::getInstance().collapseSimilarChannels(); },
+				[](bool v) { StaroSettings::getInstance().setCollapseSimilarChannels(v); }
 			},
 			NestedEntry{
 				tr::ayu_HideSimilarChannelsTab(tr::now),
-				[] { return AyuSettings::getInstance().hideSimilarChannels(); },
-				[](bool v) { AyuSettings::getInstance().setHideSimilarChannels(v); }
+				[] { return StaroSettings::getInstance().hideSimilarChannels(); },
+				[](bool v) { StaroSettings::getInstance().setHideSimilarChannels(v); }
 			}
 		},
 		.toggledWhenAll = true,
@@ -202,8 +202,8 @@ void BuildQoLToggles(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 	ayu.addSettingToggle({
 		.id = u"ayu/disableNotificationsDelay"_q,
 		.title = tr::ayu_DisableNotificationsDelay(),
-		.getter = &AyuSettings::disableNotificationsDelay,
-		.setter = &AyuSettings::setDisableNotificationsDelay,
+		.getter = &StaroSettings::disableNotificationsDelay,
+		.setter = &StaroSettings::setDisableNotificationsDelay,
 	});
 
 	ayu.addSectionDivider();
@@ -222,7 +222,7 @@ void BuildQoLToggles(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 			}
 		) | on_next(
 			[=](bool enabled) {
-				AyuSettings::getInstance().setFilterZalgo(enabled);
+				StaroSettings::getInstance().setFilterZalgo(enabled);
 				ShowRestartPrompt(controller);
 			},
 			zalgoButton->lifetime());
@@ -232,8 +232,8 @@ void BuildQoLToggles(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 	ayu.addSettingToggle({
 		.id = u"ayu/improveLinkPreviews"_q,
 		.title = tr::ayu_ImproveLinkPreviews(),
-		.getter = &AyuSettings::improveLinkPreviews,
-		.setter = &AyuSettings::setImproveLinkPreviews,
+		.getter = &StaroSettings::improveLinkPreviews,
+		.setter = &StaroSettings::setImproveLinkPreviews,
 	});
 	ayu.addCollapsibleToggle({
 		.id = u"ayu/confirmations"_q,
@@ -241,23 +241,23 @@ void BuildQoLToggles(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 		.checkboxes = {
 			NestedEntry{
 				tr::ayu_StickerConfirmation(tr::now),
-				[] { return AyuSettings::getInstance().stickerConfirmation(); },
-				[](bool v) { AyuSettings::getInstance().setStickerConfirmation(v); }
+				[] { return StaroSettings::getInstance().stickerConfirmation(); },
+				[](bool v) { StaroSettings::getInstance().setStickerConfirmation(v); }
 			},
 			NestedEntry{
 				tr::ayu_GIFConfirmation(tr::now),
-				[] { return AyuSettings::getInstance().gifConfirmation(); },
-				[](bool v) { AyuSettings::getInstance().setGifConfirmation(v); }
+				[] { return StaroSettings::getInstance().gifConfirmation(); },
+				[](bool v) { StaroSettings::getInstance().setGifConfirmation(v); }
 			},
 			NestedEntry{
 				tr::ayu_VoiceConfirmation(tr::now),
-				[] { return AyuSettings::getInstance().voiceConfirmation(); },
-				[](bool v) { AyuSettings::getInstance().setVoiceConfirmation(v); }
+				[] { return StaroSettings::getInstance().voiceConfirmation(); },
+				[](bool v) { StaroSettings::getInstance().setVoiceConfirmation(v); }
 			},
 			NestedEntry{
 				tr::ayu_RoundConfirmation(tr::now),
-				[] { return AyuSettings::getInstance().roundConfirmation(); },
-				[](bool v) { AyuSettings::getInstance().setRoundConfirmation(v); }
+				[] { return StaroSettings::getInstance().roundConfirmation(); },
+				[](bool v) { StaroSettings::getInstance().setRoundConfirmation(v); }
 			}
 		},
 		.toggledWhenAll = false,
@@ -266,8 +266,8 @@ void BuildQoLToggles(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 		.id = u"ayu/showMessageSeconds"_q,
 		.altIds = { u"ayu/formatTimeWithSeconds"_q },
 		.title = tr::ayu_SettingsShowMessageSeconds(),
-		.getter = &AyuSettings::showMessageSeconds,
-		.setter = &AyuSettings::setShowMessageSeconds,
+		.getter = &StaroSettings::showMessageSeconds,
+		.setter = &StaroSettings::setShowMessageSeconds,
 	});
 
 	BuildShowPeerId(builder);
@@ -279,8 +279,8 @@ void BuildQoLToggles(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 	ayu.addSettingToggle({
 		.id = u"ayu/spoofWebviewAsAndroid"_q,
 		.title = tr::ayu_SettingsSpoofWebviewAsAndroid(),
-		.getter = &AyuSettings::spoofWebviewAsAndroid,
-		.setter = &AyuSettings::setSpoofWebviewAsAndroid,
+		.getter = &StaroSettings::spoofWebviewAsAndroid,
+		.setter = &StaroSettings::setSpoofWebviewAsAndroid,
 	});
 
 	ayu.addCollapsibleToggle({
@@ -289,13 +289,13 @@ void BuildQoLToggles(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 		.checkboxes = {
 			NestedEntry{
 				tr::ayu_SettingsIncreaseWebviewHeight(tr::now),
-				[] { return AyuSettings::getInstance().increaseWebviewHeight(); },
-				[](bool v) { AyuSettings::getInstance().setIncreaseWebviewHeight(v); }
+				[] { return StaroSettings::getInstance().increaseWebviewHeight(); },
+				[](bool v) { StaroSettings::getInstance().setIncreaseWebviewHeight(v); }
 			},
 			NestedEntry{
 				tr::ayu_SettingsIncreaseWebviewWidth(tr::now),
-				[] { return AyuSettings::getInstance().increaseWebviewWidth(); },
-				[](bool v) { AyuSettings::getInstance().setIncreaseWebviewWidth(v); }
+				[] { return StaroSettings::getInstance().increaseWebviewWidth(); },
+				[](bool v) { StaroSettings::getInstance().setIncreaseWebviewWidth(v); }
 			}
 		},
 		.toggledWhenAll = false,
@@ -303,12 +303,12 @@ void BuildQoLToggles(SectionBuilder &builder, AyuSectionBuilder &ayu) {
 }
 
 const auto kMeta = BuildHelper({
-	.id = AyuGeneral::Id(),
-	.parentId = AyuMain::Id(),
+	.id = StaroGeneral::Id(),
+	.parentId = StaroMain::Id(),
 	.title = &tr::ayu_CategoryGeneral,
 	.icon = &st::menuIconShowAll,
 }, [](SectionBuilder &builder) {
-	auto ayu = AyuSectionBuilder(builder);
+	auto ayu = StaroSectionBuilder(builder);
 
 	builder.addSkip();
 	BuildQoLToggles(builder, ayu);
@@ -317,25 +317,25 @@ const auto kMeta = BuildHelper({
 
 } // namespace
 
-rpl::producer<QString> AyuGeneral::title() {
+rpl::producer<QString> StaroGeneral::title() {
 	return tr::ayu_CategoryGeneral();
 }
 
-AyuGeneral::AyuGeneral(
+StaroGeneral::StaroGeneral(
 	QWidget *parent,
 	not_null<Window::SessionController*> controller)
 : Section(parent, controller) {
 	setupContent();
 }
 
-void AyuGeneral::setupContent() {
+void StaroGeneral::setupContent() {
 	const auto content = Ui::CreateChild<Ui::VerticalLayout>(this);
 	build(content, kMeta.build);
 	Ui::ResizeFitChild(this, content);
 }
 
-Type AyuGeneralId() {
-	return AyuGeneral::Id();
+Type StaroGeneralId() {
+	return StaroGeneral::Id();
 }
 
 } // namespace Settings

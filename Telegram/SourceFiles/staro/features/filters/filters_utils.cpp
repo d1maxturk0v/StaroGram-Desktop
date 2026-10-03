@@ -468,7 +468,7 @@ QString FilterUtils::exportFilters() {
 	QJsonArray filtersArray;
 	QJsonObject jsonObject;
 	jsonObject["version"] = BACKUP_VERSION;
-	const auto filters = AyuDatabase::getAllRegexFilters();
+	const auto filters = StaroDatabase::getAllRegexFilters();
 
 	for (const auto &item : filters) {
 		QJsonObject filterJson;
@@ -495,7 +495,7 @@ QString FilterUtils::exportFilters() {
 	}
 	jsonObject["filters"] = filtersArray;
 
-	const auto excl = AyuDatabase::getAllFiltersExclusions();
+	const auto excl = StaroDatabase::getAllFiltersExclusions();
 
 
 	std::vector<BackupExclusion> exclusions;
@@ -740,8 +740,8 @@ ApplyChanges FilterUtils::prepareChanges(const QJsonObject &root) {
 	}
 
 
-	const auto existingFilters = AyuDatabase::getAllRegexFilters();
-	const auto existingExclusions = AyuDatabase::getAllFiltersExclusions();
+	const auto existingFilters = StaroDatabase::getAllRegexFilters();
+	const auto existingExclusions = StaroDatabase::getAllFiltersExclusions();
 
 	std::vector<RegexFilter> filtersOverrides;
 	std::map<std::vector<char>, RegexFilter> newFilters;
@@ -903,32 +903,32 @@ ApplyChanges FilterUtils::prepareChanges(const QJsonObject &root) {
 void FilterUtils::applyChanges(const ApplyChanges &changes) {
 	if (!changes.newFilters.empty()) {
 		for (const auto &filter : changes.newFilters) {
-			AyuDatabase::addRegexFilter(filter);
+			StaroDatabase::addRegexFilter(filter);
 		}
 	}
 
 	if (!changes.removeFiltersById.empty()) {
 		for (const auto &id : changes.removeFiltersById) {
-			AyuDatabase::deleteExclusionsByFilterId(id);
-			AyuDatabase::deleteFilter(id);
+			StaroDatabase::deleteExclusionsByFilterId(id);
+			StaroDatabase::deleteFilter(id);
 		}
 	}
 
 	if (!changes.filtersOverrides.empty()) {
 		for (const auto &filter : changes.filtersOverrides) {
-			AyuDatabase::updateRegexFilter(filter);
+			StaroDatabase::updateRegexFilter(filter);
 		}
 	}
 
 	if (!changes.newExclusions.empty()) {
 		for (const auto &exclusion : changes.newExclusions) {
-			AyuDatabase::addRegexExclusion(exclusion);
+			StaroDatabase::addRegexExclusion(exclusion);
 		}
 	}
 
 	if (!changes.removeExclusions.empty()) {
 		for (const auto &exclusion : changes.removeExclusions) {
-			AyuDatabase::deleteExclusion(exclusion.dialogId, exclusion.filterId);
+			StaroDatabase::deleteExclusion(exclusion.dialogId, exclusion.filterId);
 		}
 	}
 

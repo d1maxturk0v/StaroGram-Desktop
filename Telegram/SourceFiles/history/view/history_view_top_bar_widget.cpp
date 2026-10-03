@@ -189,7 +189,7 @@ TopBarWidget::TopBarWidget(
 		);
 	});
 
-	AyuSettings::getInstance().quickAdminShortcutsChanges(
+	StaroSettings::getInstance().quickAdminShortcutsChanges(
 	) | rpl::on_next([=](bool) {
 		updateControlsVisibility();
 	}, lifetime());
@@ -881,7 +881,7 @@ void TopBarWidget::infoClicked() {
 
 void TopBarWidget::backClicked() {
 	if (_activeChat.key.folder()) {
-		const auto &settings = AyuSettings::getInstance();
+		const auto &settings = StaroSettings::getInstance();
 		if (settings.hideAllChatsFolder()) {
 			const auto filters = &_controller->session().data().chatsFilters();
 			const auto lookupId = filters->lookupId(_controller->session().premium() ? 0 : 1);
@@ -1354,7 +1354,7 @@ void TopBarWidget::updateControlsVisibility() {
 		return;
 	}
 
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 
 	const auto visible = showSelectedState() || _selectedShown.animating();
 	_clear->setVisible(visible);
@@ -1440,7 +1440,7 @@ void TopBarWidget::updateControlsVisibility() {
 
 	const auto showRecentActions = [&]
 	{
-		const auto &settings = AyuSettings::getInstance();
+		const auto &settings = StaroSettings::getInstance();
 		if (!settings.quickAdminShortcuts()) {
 			return false;
 		}
@@ -1458,7 +1458,7 @@ void TopBarWidget::updateControlsVisibility() {
 	_recentActions->setVisible(showRecentActions);
 	const auto showAdmins = [&]
 	{
-		const auto &settings = AyuSettings::getInstance();
+		const auto &settings = StaroSettings::getInstance();
 		if (!settings.quickAdminShortcuts()) {
 			return false;
 		}
@@ -1546,14 +1546,14 @@ void TopBarWidget::updateMembersShowArea() {
 }
 
 bool TopBarWidget::showSelectedState() const {
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 
 	return (_selectedCount > 0)
 		&& (_canDelete || _canForward || _canSendNow || settings.showMessageShot());
 }
 
 void TopBarWidget::showSelected(SelectedState state) {
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 
 	auto canDelete = (state.count > 0 && state.count == state.canDeleteCount);
 	auto canForward = (state.count > 0 && state.count == state.canForwardCount);

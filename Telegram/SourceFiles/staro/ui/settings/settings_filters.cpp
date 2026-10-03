@@ -39,12 +39,12 @@
 namespace Settings {
 
 using namespace Builder;
-using namespace AyuBuilder;
+using namespace StaroBuilder;
 
 namespace {
 
 void BuildFiltersSettings(SectionBuilder &builder) {
-	auto *settings = &AyuSettings::getInstance();
+	auto *settings = &StaroSettings::getInstance();
 
 	builder.addSkip();
 	builder.addSubsectionTitle(tr::ayu_RegexFilters());
@@ -60,7 +60,7 @@ void BuildFiltersSettings(SectionBuilder &builder) {
 		) | rpl::filter([=](bool enabled) {
 			return (enabled != settings->filtersEnabled());
 		}) | on_next([=](bool enabled) {
-			AyuSettings::getInstance().setFiltersEnabled(enabled);
+			StaroSettings::getInstance().setFiltersEnabled(enabled);
 			FiltersCacheController::rebuildCache();
 			FiltersCacheController::fireUpdate();
 		}, enabledButton->lifetime());
@@ -78,7 +78,7 @@ void BuildFiltersSettings(SectionBuilder &builder) {
 		) | rpl::filter([=](bool enabled) {
 			return (enabled != settings->filtersEnabledInChats());
 		}) | on_next([=](bool enabled) {
-			AyuSettings::getInstance().setFiltersEnabledInChats(enabled);
+			StaroSettings::getInstance().setFiltersEnabledInChats(enabled);
 			FiltersCacheController::rebuildCache();
 			FiltersCacheController::fireUpdate();
 		}, sharedButton->lifetime());
@@ -95,7 +95,7 @@ void BuildFiltersSettings(SectionBuilder &builder) {
 		) | rpl::filter([=](bool enabled) {
 			return (enabled != settings->hideFromBlocked());
 		}) | on_next([=](bool enabled) {
-			AyuSettings::getInstance().setHideFromBlocked(enabled);
+			StaroSettings::getInstance().setHideFromBlocked(enabled);
 			FiltersCacheController::rebuildCache();
 			FiltersCacheController::fireUpdate();
 		}, blockedButton->lifetime());
@@ -116,7 +116,7 @@ void BuildShared(SectionBuilder &builder) {
 		.onClick = [=] {
 			controller->dialogId = std::nullopt;
 			controller->showExclude = false;
-			controller->showSettings(AyuFiltersList::Id());
+			controller->showSettings(StaroFiltersList::Id());
 		},
 	});
 }
@@ -133,7 +133,7 @@ void BuildShadowBan(SectionBuilder &builder) {
 			controller->dialogId = std::nullopt;
 			controller->showExclude = false;
 			controller->shadowBan = true;
-			controller->showSettings(AyuFiltersList::Id());
+			controller->showSettings(StaroFiltersList::Id());
 		},
 	});
 }
@@ -141,7 +141,7 @@ void BuildShadowBan(SectionBuilder &builder) {
 void BuildPerDialog(SectionBuilder &builder) {
 	builder.add([](const BuildContext &ctx) {
 		v::match(ctx, [&](const WidgetContext &wctx) {
-			if (!AyuDatabase::hasPerDialogFilters()) {
+			if (!StaroDatabase::hasPerDialogFilters()) {
 				return;
 			}
 
@@ -173,8 +173,8 @@ void BuildPerDialog(SectionBuilder &builder) {
 }
 
 const auto kMeta = BuildHelper({
-	.id = AyuFilters::Id(),
-	.parentId = AyuMain::Id(),
+	.id = StaroFilters::Id(),
+	.parentId = StaroMain::Id(),
 	.title = &tr::ayu_CategoryFilters,
 	.icon = &st::menuIconTagFilter,
 }, [](SectionBuilder &builder) {
@@ -186,11 +186,11 @@ const auto kMeta = BuildHelper({
 
 } // namespace
 
-rpl::producer<QString> AyuFilters::title() {
+rpl::producer<QString> StaroFilters::title() {
 	return tr::ayu_CategoryFilters();
 }
 
-void AyuFilters::fillTopBarMenu(const Ui::Menu::MenuCallback &addAction) {
+void StaroFilters::fillTopBarMenu(const Ui::Menu::MenuCallback &addAction) {
 	addAction(
 		tr::ayu_FiltersMenuSelectChat(tr::now),
 		[=] {
@@ -207,7 +207,7 @@ void AyuFilters::fillTopBarMenu(const Ui::Menu::MenuCallback &addAction) {
 							const auto peer = thread->peer();
 							controller->dialogId = getDialogIdFromPeer(peer);
 							controller->showExclude = true;
-							controller->showSettings(AyuFiltersList::Id());
+							controller->showSettings(StaroFiltersList::Id());
 							return true;
 						},
 						tr::ayu_FiltersMenuSelectChat(),
@@ -225,7 +225,7 @@ void AyuFilters::fillTopBarMenu(const Ui::Menu::MenuCallback &addAction) {
 			Ui::show(std::move(box));
 		},
 		&st::menuIconArchive);
-	if (AyuDatabase::hasFilters()) {
+	if (StaroDatabase::hasFilters()) {
 		addAction(
 			tr::ayu_FiltersMenuExport(tr::now),
 			[=] {
@@ -239,8 +239,8 @@ void AyuFilters::fillTopBarMenu(const Ui::Menu::MenuCallback &addAction) {
 		.text = tr::ayu_FiltersMenuClear(tr::now),
 		.handler = [=] {
 			auto callback = [=](Fn<void()> &&close) {
-				AyuDatabase::deleteAllFilters();
-				AyuDatabase::deleteAllExclusions();
+				StaroDatabase::deleteAllFilters();
+				StaroDatabase::deleteAllExclusions();
 				FiltersCacheController::rebuildCache();
 				FiltersCacheController::fireUpdate();
 				close();
@@ -258,21 +258,21 @@ void AyuFilters::fillTopBarMenu(const Ui::Menu::MenuCallback &addAction) {
 	});
 }
 
-AyuFilters::AyuFilters(
+StaroFilters::StaroFilters(
 	QWidget *parent,
 	not_null<Window::SessionController*> controller)
 : Section(parent, controller) {
 	setupContent();
 }
 
-void AyuFilters::setupContent() {
+void StaroFilters::setupContent() {
 	const auto content = Ui::CreateChild<Ui::VerticalLayout>(this);
 	build(content, kMeta.build);
 	Ui::ResizeFitChild(this, content);
 }
 
-Type AyuFiltersId() {
-	return AyuFilters::Id();
+Type StaroFiltersId() {
+	return StaroFilters::Id();
 }
 
 } // namespace Settings

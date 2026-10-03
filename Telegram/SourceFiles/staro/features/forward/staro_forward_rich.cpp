@@ -19,7 +19,7 @@
 #include "iv/iv_rich_page.h"
 #include "storage/localimageloader.h"
 
-namespace AyuForward {
+namespace StaroForward {
 namespace {
 
 using Block = Iv::RichPage::Block;
@@ -117,16 +117,16 @@ void collectMedia(not_null<Main::Session*> session, const std::vector<Block> &bl
 	{
 		const auto ready = [&]
 		{
-			const auto size = AyuSync::fileSize(path);
+			const auto size = StaroSync::fileSize(path);
 			return size > 0 && size >= expected;
 		};
 		if (!ready()) {
 			load();
 			if (!ready()) {
-				return AyuSync::UploadedFile();
+				return StaroSync::UploadedFile();
 			}
 		}
-		return AyuSync::uploadFileSync(session, peer, path, type, forceFile);
+		return StaroSync::uploadFileSync(session, peer, path, type, forceFile);
 	};
 
 	for (const auto &[id, photo] : source.photos) {
@@ -135,10 +135,10 @@ void collectMedia(not_null<Main::Session*> session, const std::vector<Block> &bl
 		}
 
 		const auto uploaded = ensureUploaded(
-			AyuSync::filePath(session, photo),
+			StaroSync::filePath(session, photo),
 			photo->imageByteSize(Data::PhotoSize::Large),
 			[&] {
-				AyuSync::loadPhotoSync(
+				StaroSync::loadPhotoSync(
 					session,
 					photo,
 					origin,
@@ -149,7 +149,7 @@ void collectMedia(not_null<Main::Session*> session, const std::vector<Block> &bl
 		if (uploaded.photo) {
 			result.photos.emplace(id, uploaded.photo);
 		} else {
-			LOG(("AyuForward: failed to transfer photo %1 for rich message").arg(id));
+			LOG(("StaroForward: failed to transfer photo %1 for rich message").arg(id));
 		}
 	}
 
@@ -163,28 +163,28 @@ void collectMedia(not_null<Main::Session*> session, const std::vector<Block> &bl
 			|| document->isSong()
 			|| document->isAudioFile()
 			|| document->isVoiceMessage();
-		const auto path = AyuSync::loadDocumentSync(
+		const auto path = StaroSync::loadDocumentSync(
 			session,
 			document,
 			origin,
 			cancelled);
 		const auto pathInfo = QFileInfo(path);
-		auto uploaded = AyuSync::UploadedFile();
+		auto uploaded = StaroSync::UploadedFile();
 		if (!path.isEmpty()
 			&& pathInfo.isFile()
 			&& pathInfo.size() == document->size) {
-			uploaded = AyuSync::uploadFileSync(
+			uploaded = StaroSync::uploadFileSync(
 				session,
 				peer,
 				path,
 				SendMediaType::File,
 				!playable,
-				AyuSync::documentFileName(document));
+				StaroSync::documentFileName(document));
 		}
 		if (uploaded.document) {
 			result.documents.emplace(id, uploaded.document);
 		} else {
-			LOG(("AyuForward: failed to transfer document %1 for rich message").arg(id));
+			LOG(("StaroForward: failed to transfer document %1 for rich message").arg(id));
 		}
 	}
 
@@ -353,7 +353,7 @@ bool forwardRichMessage(
 		};
 	}
 
-	const auto source = AyuSync::loadFullRichPageSync(session, itemId);
+	const auto source = StaroSync::loadFullRichPageSync(session, itemId);
 	if (!source || cancelled()) {
 		return false;
 	}
@@ -410,7 +410,7 @@ bool forwardRichMessage(
 		return false;
 	}
 
-	return AyuSync::sendRichMessageSync(session, **serialized, action);
+	return StaroSync::sendRichMessageSync(session, **serialized, action);
 }
 
 } // namespace AyuForward

@@ -8,7 +8,7 @@
 
 #include "staro/staro_settings.h"
 
-namespace AyuState {
+namespace StaroState {
 
 std::unordered_map<PeerId, std::unordered_set<MsgId>> hiddenMessages;
 Main::Session *disableGhostModeOnStoryCloseSession = nullptr;
@@ -43,7 +43,7 @@ void disableGhostModeOnStoryClose(Main::Session *session) {
 	}
 	disableGhostModeOnStoryCloseSession = nullptr;
 	if (session) {
-		AyuSettings::ghost(session).setGhostModeEnabled(false);
+		StaroSettings::ghost(session).setGhostModeEnabled(false);
 	}
 }
 

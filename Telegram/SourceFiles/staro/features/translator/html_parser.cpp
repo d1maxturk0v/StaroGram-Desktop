@@ -6,7 +6,7 @@
 // Copyright @Radolyn, 2026
 #include "staro/features/translator/html_parser.h"
 
-namespace Ayu::Translator::Html {
+namespace Staro::Translator::Html {
 
 // yandex messes up HTML badly, so formatting removed for now
 

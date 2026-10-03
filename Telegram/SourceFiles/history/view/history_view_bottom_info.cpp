@@ -177,7 +177,7 @@ TextState BottomInfo::textState(
 	}
 	const auto textWidth = _authorEditedDate.maxWidth();
 	auto withTicksWidth = textWidth;
-	if (!AyuFeatures::MessageShot::isTakingShot() && (_data.flags & (Data::Flag::OutLayout | Data::Flag::Sending))) {
+	if (!StaroFeatures::MessageShot::isTakingShot() && (_data.flags & (Data::Flag::OutLayout | Data::Flag::Sending))) {
 		withTicksWidth += st::historySendStateSpace;
 	}
 	if (!_views.isEmpty()) {
@@ -280,7 +280,7 @@ void BottomInfo::paint(
 
 	auto right = position.x() + width();
 	const auto firstLineBottom = position.y() + st::msgDateFont->height;
-	if (!AyuFeatures::MessageShot::isTakingShot() && (_data.flags & Data::Flag::OutLayout)) {
+	if (!StaroFeatures::MessageShot::isTakingShot() && (_data.flags & Data::Flag::OutLayout)) {
 		const auto &icon = (_data.flags & Data::Flag::Sending)
 			? (inverted
 				? st->historySendingInvertedIcon()
@@ -372,7 +372,7 @@ void BottomInfo::paint(
 			firstLineBottom + st::historyViewsTop,
 			outerWidth);
 	}
-	if (!AyuFeatures::MessageShot::isTakingShot() && (_data.flags & Data::Flag::Sending)
+	if (!StaroFeatures::MessageShot::isTakingShot() && (_data.flags & Data::Flag::Sending)
 		&& !(_data.flags & Data::Flag::OutLayout)) {
 		right -= st::historySendStateSpace;
 		const auto &icon = inverted
@@ -489,12 +489,12 @@ void BottomInfo::layout() {
 }
 
 void BottomInfo::layoutDateText() {
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 	const auto editedPrimary = (_data.flags & Data::Flag::EditedPrimary)
 		&& !(_data.flags & Data::Flag::ForwardedDate);
 
 	if (!settings.replaceBottomInfoWithIcons()) {
-		const auto deleted = (_data.flags & Data::Flag::AyuDeleted)
+		const auto deleted = (_data.flags & Data::Flag::StaroDeleted)
 			? (settings.deletedMark() + ' ')
 			: QString();
 		const auto edited = editedPrimary
@@ -550,7 +550,7 @@ void BottomInfo::layoutDateText() {
 				.textColor = false,
 			})).append("  ");
 		}
-		if (_data.flags & Data::Flag::AyuBurnt) {
+		if (_data.flags & Data::Flag::StaroBurnt) {
 			marked.append(Ui::Text::IconEmoji(&st::burntIcon));
 			marked.append(' ');
 		}
@@ -575,15 +575,15 @@ void BottomInfo::layoutDateText() {
 		}
 
 		TextWithEntities burnt;
-		if (_data.flags & Data::Flag::AyuBurnt) {
+		if (_data.flags & Data::Flag::StaroBurnt) {
 			burnt = Ui::Text::IconEmoji(&st::burntIcon);
-			if (!(_data.flags & Data::Flag::AyuDeleted) && edited.empty()) {
+			if (!(_data.flags & Data::Flag::StaroDeleted) && edited.empty()) {
 				burnt.append(' ');
 			}
 		}
 
 		TextWithEntities deleted;
-		if (_data.flags & Data::Flag::AyuDeleted) {
+		if (_data.flags & Data::Flag::StaroDeleted) {
 			deleted = Ui::Text::IconEmoji(&st::deletedIcon);
 			if (edited.empty()) {
 				deleted.append(' ');
@@ -696,7 +696,7 @@ QSize BottomInfo::countOptimalSize() {
 		return { st::historyShortcutStateSpace, st::msgDateFont->height };
 	}
 	auto width = 0;
-	if (!AyuFeatures::MessageShot::isTakingShot() && (_data.flags & (Data::Flag::OutLayout | Data::Flag::Sending))) {
+	if (!StaroFeatures::MessageShot::isTakingShot() && (_data.flags & (Data::Flag::OutLayout | Data::Flag::Sending))) {
 		width += st::historySendStateSpace;
 	}
 	width += _authorEditedDate.maxWidth();
@@ -852,10 +852,10 @@ BottomInfo::Data BottomInfoDataFromMessage(not_null<Message*> message) {
 		}
 	}
 	if (item->isDeleted()) {
-		result.flags |= Flag::AyuDeleted;
+		result.flags |= Flag::StaroDeleted;
 	}
 	if (item->isBurnt()) {
-		result.flags |= Flag::AyuBurnt;
+		result.flags |= Flag::StaroBurnt;
 	}
 	if (!forwarded) {
 		return result;

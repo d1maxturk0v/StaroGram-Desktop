@@ -22,7 +22,7 @@ namespace Iv {
 struct RichPage;
 } // namespace Iv
 
-namespace AyuSync {
+namespace StaroSync {
 
 using DocumentPaths = base::flat_map<not_null<DocumentData*>, QString>;
 

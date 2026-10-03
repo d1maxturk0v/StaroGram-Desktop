@@ -11,7 +11,7 @@
 
 #include <atomic>
 
-namespace AyuForward {
+namespace StaroForward {
 bool isForwarding(const PeerId &id);
 void cancelForward(const PeerId &id, const Main::Session &session);
 std::pair<QString, QString> stateName(const PeerId &id);
@@ -52,9 +52,9 @@ public:
 
 };
 
-bool isAyuForwardNeeded(const std::vector<not_null<HistoryItem*>> &items);
-bool isAyuForwardNeeded(not_null<HistoryItem*> item);
-bool isFullAyuForwardNeeded(not_null<HistoryItem*> item);
+bool isStaroForwardNeeded(const std::vector<not_null<HistoryItem*>> &items);
+bool isStaroForwardNeeded(not_null<HistoryItem*> item);
+bool isFullStaroForwardNeeded(not_null<HistoryItem*> item);
 void intelligentForward(
 	not_null<Main::Session*> session,
 	const Api::SendAction &action,

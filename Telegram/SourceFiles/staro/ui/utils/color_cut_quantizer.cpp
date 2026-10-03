@@ -13,7 +13,7 @@
 #include <algorithm>
 #include <cmath>
 
-namespace Ayu::Ui {
+namespace Staro::Ui {
 
 ColorCutQuantizer::ColorCutQuantizer(
 	const std::vector<int> &pixels,

@@ -17,7 +17,7 @@
 #include <cmath>
 #include <QImage>
 
-namespace Ayu::Ui {
+namespace Staro::Ui {
 
 Swatch::Swatch(QRgb color, int population)
 	: _red(qRed(color))

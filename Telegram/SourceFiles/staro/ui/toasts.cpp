@@ -5,7 +5,7 @@
 
 #include <memory>
 
-namespace Ayu::Ui {
+namespace Staro::Ui {
 
 void ShowToastWithAction(
 		::Ui::Toast::Config &&config,

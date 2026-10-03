@@ -7,7 +7,7 @@
 
 #include "staro/features/streamer_mode/platform/linux/streamer_mode_linux.h"
 
-namespace AyuFeatures::StreamerMode::Platform {
+namespace StaroFeatures::StreamerMode::Platform {
 
 void SetWindowCaptureExcluded(not_null<QWidget*>, bool) {
 }

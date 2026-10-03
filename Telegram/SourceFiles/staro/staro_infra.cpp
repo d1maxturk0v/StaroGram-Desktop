@@ -21,7 +21,7 @@
 #include "staro/utils/windows_utils.h"
 #endif
 
-namespace AyuInfra {
+namespace StaroInfra {
 
 void initLang() {
 	QString id = Lang::GetInstance().id();
@@ -30,12 +30,12 @@ void initLang() {
 		LOG(("Language is not loaded"));
 		return;
 	}
-	AyuLanguage::init();
-	AyuLanguage::currentInstance()->fetchLanguage(id, baseId);
+	StaroLanguage::init();
+	StaroLanguage::currentInstance()->fetchLanguage(id, baseId);
 }
 
 void initUiSettings() {
-	const auto &settings = AyuSettings::getInstance();
+	const auto &settings = StaroSettings::getInstance();
 
 	AyuUiSettings::setMonoFont(settings.monoFont());
 	AyuUiSettings::setWideMultiplier(settings.wideMultiplier());
@@ -45,11 +45,11 @@ void initUiSettings() {
 }
 
 void initDatabase() {
-	AyuDatabase::initialize();
+	StaroDatabase::initialize();
 }
 
 void initWorker() {
-	AyuWorker::initialize();
+	StaroWorker::initialize();
 }
 
 void initRCManager() {
@@ -57,12 +57,12 @@ void initRCManager() {
 }
 
 void initTranslator() {
-	Ayu::Translator::TranslateManager::init();
+	Staro::Translator::TranslateManager::init();
 }
 
 void initIcon() {
 #ifdef Q_OS_WIN
-	AyuAssets::loadAppIco();
+	StaroAssets::loadAppIco();
 	reloadAppIconFromTaskBar();
 #endif
 }
