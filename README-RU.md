@@ -1,6 +1,6 @@
-# StaroGram Desktop
+﻿# StaroGram Desktop
 
-![StaroGram Logo](.github/StaroGram.png)
+<p align="center"><img src=".github/StaroGram.png" width="256" alt="StaroGram Logo"></p>
 
 [ [English](README.md) | Русский ]
 
